@@ -20,8 +20,8 @@ import seedu.address.model.profile.course.module.personal.Deadline;
 public class Profile {
 
     // Identity fields
-    private static HashMap<Integer, ArrayList<Module>> moduleHash;
-    private static String currentSemester;
+    private HashMap<Integer, ArrayList<Module>> moduleHash;
+    private String currentSemester;
     private final Name name;
     private final CourseName courseName;
     private final String specialisation;
@@ -45,7 +45,7 @@ public class Profile {
     /**
      * Adds a module to the hashmap with the key being the semester
      */
-    public static void addModule(Integer semester, Module module) {
+    public void addModule(Integer semester, Module module) {
         if (!moduleHash.isEmpty() && moduleHash.containsKey(semester)) {
             moduleHash.get(semester).add(module);
         } else {
@@ -63,7 +63,7 @@ public class Profile {
         return courseName;
     }
 
-    public static String getCurrentSemester() {
+    public String getCurrentSemester() {
         return currentSemester;
     }
 
@@ -71,7 +71,7 @@ public class Profile {
         return specialisation;
     }
 
-    public static ArrayList<Module> getModules(Integer semester) {
+    public ArrayList<Module> getModules(Integer semester) {
         return moduleHash.get(semester);
     }
 
@@ -79,7 +79,7 @@ public class Profile {
         return moduleHash.entrySet();
     }
 
-    public static HashMap<Integer, ArrayList<Module>> getHashMap() {
+    public HashMap<Integer, ArrayList<Module>> getHashMap() {
         return moduleHash;
     }
 

@@ -208,6 +208,8 @@ class JsonPersonalModule extends JsonModule {
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 class JsonDeadline {
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Deadline's %s field is missing!";
+
     private String description;
     private String date;
     private String time;
@@ -242,18 +244,27 @@ class JsonDeadline {
      * @throws IllegalValueException if there were any data constraints violated in the deadline.
      */
     public Deadline toModelType() throws IllegalValueException {
-        try {
-            LocalDate.parse(date);
-            LocalTime.parse(time);
-        } catch (DateTimeParseException | NullPointerException e) {
-            throw new IllegalValueException("Deadline's date field should be a valid date in the format YYYY-MM-DD "
-                    + "and time field should be a valid time in the format HH:mm");
+        if (description == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    "description"));
         }
 
-        try {
-            return new Deadline(description, date, time);
-        } catch (DateTimeException e) {
-            throw new IllegalValueException("Unknown error occurred");
+        if (date != null && time != null) {
+            try {
+                LocalDate.parse(date);
+                LocalTime.parse(time);
+            } catch (DateTimeParseException | NullPointerException e) {
+                throw new IllegalValueException("Deadline's date field should be a valid date in the format YYYY-MM-DD "
+                        + "and time field should be a valid time in the format HH:mm");
+            }
+
+            try {
+                return new Deadline(description, date, time);
+            } catch (DateTimeException e) {
+                throw new IllegalValueException("Unknown error occurred");
+            }
         }
+
+        return new Deadline(description);
     }
 }

@@ -24,20 +24,20 @@ public class ShowCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "All modules taken in this semester are shown: \n %1$s";
 
-    private final ArrayList<Module> toShow;
+    private ArrayList<Module> toShow;
+    private int showSemester;
 
     /**
      * Creates an ShowCommand to show the specified {@code Modules}
-     * @param modules
      */
-    public ShowCommand(ArrayList<Module> modules) {
-        requireNonNull(modules);
-        toShow = modules;
+    public ShowCommand(int semester) {
+        showSemester = semester;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
+        toShow = model.getFirstProfile().getModules(showSemester);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toShow));
     }
 

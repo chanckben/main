@@ -2,14 +2,11 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SEMESTER;
-import static seedu.address.model.profile.Profile.getModules;
 
-import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.course.module.Module;
 
 /**
  * Parses input arguments and creates a new ShowCommand object
@@ -31,9 +28,7 @@ public class ShowCommandParser implements Parser<ShowCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ShowCommand.MESSAGE_USAGE));
         }
         int intSemester = Integer.parseInt(semester);
-        ArrayList<Module> modulesList = getModules(intSemester);
-
-        return new ShowCommand(modulesList);
+        return new ShowCommand(intSemester);
     }
 
     /**
