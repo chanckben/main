@@ -1,15 +1,18 @@
 package seedu.address.model;
 
 import java.nio.file.Path;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.Course;
 import seedu.address.model.profile.course.CourseFocusArea;
+import seedu.address.model.profile.course.CourseName;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
@@ -20,6 +23,8 @@ import seedu.address.model.profile.course.module.personal.Deadline;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Profile> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
+    // ================ UserPrefs methods ==============================
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -40,6 +45,8 @@ public interface Model {
      * Sets the user prefs' GUI settings.
      */
     void setGuiSettings(GuiSettings guiSettings);
+
+    // ================ ProfileManager methods ==============================
 
     /**
      * Returns the user prefs' address book file path.
@@ -125,4 +132,22 @@ public interface Model {
     void setNewDeadlineList(Profile editedProfile);
 
     void deleteModuleFromDeadlineList(ModuleCode moduleCode);
+
+    // ================ ModuleManager methods ==============================
+
+    boolean hasModule(ModuleCode moduleCode);
+
+    boolean hasModules(List<ModuleCode> moduleCodes);
+
+    Module getModule(ModuleCode moduleCode);
+
+    List<Module> getModules(List<ModuleCode> moduleCodes);
+
+    ModuleList getModuleList();
+
+    // ================ CourseManager methods ==============================
+
+    Course getCourse(CourseName courseName) throws ParseException;
+
+    CourseFocusArea getCourseFocusArea(String focusAreaName) throws ParseException;
 }

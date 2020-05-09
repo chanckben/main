@@ -28,7 +28,7 @@ import seedu.address.model.profile.course.module.personal.Deadline;
 /**
  * Represents the in-memory model of the profile list data.
  */
-public class ProfileManager implements Model {
+public class ProfileManager {
     private static final Logger logger = LogsCenter.getLogger(ProfileManager.class);
 
     private final ProfileList profileList;
@@ -56,83 +56,68 @@ public class ProfileManager implements Model {
         this(new ProfileList(), new UserPrefs());
     }
 
-    @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
         requireNonNull(userPrefs);
         this.userPrefs.resetData(userPrefs);
     }
 
-    @Override
     public ReadOnlyUserPrefs getUserPrefs() {
         return userPrefs;
     }
 
-    @Override
     public GuiSettings getGuiSettings() {
         return userPrefs.getGuiSettings();
     }
 
-    @Override
     public void setGuiSettings(GuiSettings guiSettings) {
         requireNonNull(guiSettings);
         userPrefs.setGuiSettings(guiSettings);
     }
 
-    @Override
     public Path getProfileListFilePath() {
         return userPrefs.getProfileListFilePath();
     }
 
-    @Override
     public void setProfileListFilePath(Path profileListFilePath) {
         requireNonNull(profileListFilePath);
         userPrefs.setProfileListFilePath(profileListFilePath);
     }
 
-    @Override
     public void setProfileList(ProfileList profileList) {
         this.profileList.resetData(profileList);
     }
 
-    @Override
     public ProfileList getProfileList() {
         return profileList;
     }
 
-    @Override
     public boolean hasProfile(Name name) {
         requireNonNull(name);
         return profileList.hasProfileWithName(name);
     }
 
-    @Override
     public Profile getProfile(Name name) {
         return profileList.getProfileWithName(name);
     }
 
-    @Override
     public void deleteProfile(Profile target) {
         profileList.deleteProfile(target);
     }
 
-    @Override
     public void addProfile(Profile profile) {
         profileList.addProfile(profile);
     }
 
-    @Override
     public void setProfile(Profile target, Profile editedProfile) {
         requireAllNonNull(target, editedProfile);
 
         profileList.setProfile(target, editedProfile);
     }
 
-    @Override
     public ObservableList<Profile> getFilteredPersonList() {
         return filteredProfiles;
     }
 
-    @Override
     public void updateFilteredPersonList(Predicate<Profile> predicate) {
         requireNonNull(predicate);
         filteredProfiles.setPredicate(predicate);
@@ -154,13 +139,11 @@ public class ProfileManager implements Model {
         return sortedDeadlines;
     }
 
-    @Override
     public void addDeadline(Deadline deadline) {
         requireNonNull(deadline);
         this.deadlineList.add(deadline);
     }
 
-    @Override
     public void deleteDeadline(Deadline deadline) {
         requireNonNull(deadline);
         Iterator<Deadline> iter = this.deadlineList.iterator();
@@ -199,17 +182,14 @@ public class ProfileManager implements Model {
         }
     }
 
-    @Override
     public void clearDeadlineList() {
         this.deadlineList.clear();
     }
 
-    @Override
     public void loadDeadlines() {
         this.deadlineList.addAll(this.profileList.getProfileList().get(0).getDeadlines());
     }
 
-    @Override
     public void deleteModuleDeadlines(ModuleCode mc) {
         Iterator<Deadline> iter = this.deadlineList.iterator();
         while (iter.hasNext()) {
@@ -220,7 +200,6 @@ public class ProfileManager implements Model {
         }
     }
 
-    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -240,44 +219,36 @@ public class ProfileManager implements Model {
     }
 
     //MODULE LIST VIEW
-    @Override
     public Optional<Object> getDisplayedView() {
         return this.displayedView;
     }
 
-    @Override
     public void setDisplayedView(ObservableList<Module> toDisplay) {
         this.displayedView = Optional.ofNullable(toDisplay);
     }
 
-    @Override
     public void setDisplayedView(Profile toDisplay) {
         this.displayedView = Optional.ofNullable(toDisplay);
     }
 
-    @Override
     public void setDisplayedView(Module toDisplay) {
         this.displayedView = Optional.ofNullable(toDisplay);
     }
 
-    @Override
     public void setDisplayedView(Course toDisplay) {
         this.displayedView = Optional.ofNullable(toDisplay);
     }
 
-    @Override
     public void setDisplayedView(CourseFocusArea toDisplay) {
         this.displayedView = Optional.ofNullable(toDisplay);
     }
 
-    @Override
     public void setNewDeadlineList(Profile editedProfile) {
         if (editedProfile.getDeadlines() != null) {
             this.deadlineList.addAll(editedProfile.getDeadlines());
         }
     }
 
-    @Override
     public void deleteModuleFromDeadlineList(ModuleCode moduleCode) {
         for (Deadline deadline : this.deadlineList) {
             if (deadline.getModuleCode().equals(moduleCode)) {
