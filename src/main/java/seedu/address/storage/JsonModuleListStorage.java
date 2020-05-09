@@ -13,7 +13,7 @@ import seedu.address.model.ModuleList;
 /**
  * A class to access ModuleList data stored as a json file on the hard disk.
  */
-public class JsonModuleListStorage {
+public class JsonModuleListStorage implements ModuleListStorage {
 
     private String filePath;
 
@@ -21,7 +21,7 @@ public class JsonModuleListStorage {
         this.filePath = filePath;
     }
 
-    public String getFilePath() {
+    public String getModuleListFilePath() {
         return filePath;
     }
 

@@ -24,14 +24,7 @@ import seedu.address.model.ProfileList;
 import seedu.address.model.ProfileManager;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.storage.JsonCourseListStorage;
-import seedu.address.storage.JsonModuleListStorage;
-import seedu.address.storage.JsonProfileListStorage;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.ProfileListStorage;
-import seedu.address.storage.Storage;
-import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.*;
 
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
@@ -65,7 +58,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         ProfileListStorage profiles = new JsonProfileListStorage(userPrefs.getProfileListFilePath());
-        storage = new StorageManager(profiles, userPrefsStorage);
+        ModuleListStorage modules = new JsonModuleListStorage(userPrefs.getModuleListFilePath());
+        CourseListStorage courses = new JsonCourseListStorage(userPrefs.getCourseListFilePath());
+        storage = new StorageManager(profiles, modules, courses, userPrefsStorage);
 
         initLogging(config);
 

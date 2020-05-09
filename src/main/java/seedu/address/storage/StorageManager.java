@@ -7,9 +7,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ProfileList;
-import seedu.address.model.ReadOnlyUserPrefs;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.*;
 
 //@@author chanckben
 
@@ -20,11 +18,16 @@ public class StorageManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private ProfileListStorage profileListStorage;
+    private ModuleListStorage moduleListStorage;
+    private CourseListStorage courseListStorage;
     private UserPrefsStorage userPrefsStorage;
 
-    public StorageManager(ProfileListStorage profileListStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(ProfileListStorage profileListStorage, ModuleListStorage moduleListStorage,
+                          CourseListStorage courseListStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.profileListStorage = profileListStorage;
+        this.moduleListStorage = moduleListStorage;
+        this.courseListStorage = courseListStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
@@ -72,6 +75,42 @@ public class StorageManager implements Storage {
     public void saveProfileList(ProfileList profileList, Path filePath) throws IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         profileListStorage.saveProfileList(profileList, filePath);
+    }
+
+    // ================ ModuleList methods ==============================
+
+    @Override
+    public String getModuleListFilePath() {
+        return moduleListStorage.getModuleListFilePath();
+    }
+
+    @Override
+    public Optional<ModuleList> readModuleList() throws DataConversionException, IOException {
+        return readModuleList(moduleListStorage.getModuleListFilePath());
+    }
+
+    @Override
+    public Optional<ModuleList> readModuleList(String filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return moduleListStorage.readModuleList(filePath);
+    }
+
+    // ================ CourseList methods ==============================
+
+    @Override
+    public String getCourseListFilePath() {
+        return courseListStorage.getCourseListFilePath();
+    }
+
+    @Override
+    public Optional<CourseList> readCourseList() throws DataConversionException, IOException {
+        return readCourseList(courseListStorage.getCourseListFilePath());
+    }
+
+    @Override
+    public Optional<CourseList> readCourseList(String filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return courseListStorage.readCourseList(filePath);
     }
 
 }

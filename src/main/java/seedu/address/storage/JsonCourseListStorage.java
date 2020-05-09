@@ -13,7 +13,7 @@ import seedu.address.model.CourseList;
 /**
  * A class to access CourseList data stored as a json file on the hard disk.
  */
-public class JsonCourseListStorage {
+public class JsonCourseListStorage implements CourseListStorage {
 
     private String filePath;
 
@@ -21,7 +21,7 @@ public class JsonCourseListStorage {
         this.filePath = filePath;
     }
 
-    public String getFilePath() {
+    public String getCourseListFilePath() {
         return filePath;
     }
 
