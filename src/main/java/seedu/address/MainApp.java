@@ -16,16 +16,22 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.CourseList;
-import seedu.address.model.CourseManager;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.ModuleList;
-import seedu.address.model.ModuleManager;
 import seedu.address.model.ProfileList;
-import seedu.address.model.ProfileManager;
-import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
-import seedu.address.storage.*;
 
+import seedu.address.storage.CourseListStorage;
+import seedu.address.storage.JsonCourseListStorage;
+import seedu.address.storage.JsonModuleListStorage;
+import seedu.address.storage.JsonProfileListStorage;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.ModuleListStorage;
+import seedu.address.storage.ProfileListStorage;
+import seedu.address.storage.Storage;
+import seedu.address.storage.StorageManager;
+import seedu.address.storage.UserPrefsStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -43,9 +49,6 @@ public class MainApp extends Application {
     protected Storage storage;
     protected Model model;
     protected Config config;
-    protected CourseManager courseManager;
-    protected ModuleManager moduleManager;
-    protected ProfileManager profileManager;
 
     @Override
     public void init() throws Exception {
@@ -64,89 +67,61 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        profileManager = initProfileManager(storage, userPrefs);
-
-        courseManager = initCourseManager(userPrefs);
-        moduleManager = initModuleManager(userPrefs);
-
-        logic = new LogicManager(profileManager, storage, courseManager, moduleManager);
+        model = initModelManager(storage, userPrefs);
+        logic = new LogicManager(model, storage);
 
         ui = new UiManager(logic);
 
     }
 
     /**
-     * Returns a {@code CourseManager} with the data from {@code userPrefs}. <br>
-     * An empty course list will be used instead if a course list is not found at
-     * {@code userPrefs.getModuleListFilePath()} or errors occur when reading the module list at that location.
+     * Creates a Model using Storage for Logic
      */
-    private ModuleManager initModuleManager(UserPrefs userPrefs) {
-        JsonModuleListStorage modules = new JsonModuleListStorage(userPrefs.getModuleListFilePath());
-        ModuleManager moduleManager;
-        try {
-            Optional<ModuleList> moduleListOptional = modules.readModuleList();
-            if (!moduleListOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with an empty ModuleList");
-                moduleManager = new ModuleManager();
-            } else {
-                ModuleList moduleList = moduleListOptional.get();
-                moduleManager = new ModuleManager(moduleList);
-            }
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty ModuleList");
-            moduleManager = new ModuleManager();
-        }
-        return moduleManager;
-    }
-
-    /**
-     * Returns a {@code ModuleManager} with the data from {@code userPrefs}. <br>
-     * An empty module list will be used instead if a module list is not found at
-     * {@code userPrefs.getModuleListFilePath()} or errors occur when reading the module list at that location.
-     */
-    private CourseManager initCourseManager(UserPrefs userPrefs) {
-        JsonCourseListStorage modules = new JsonCourseListStorage(userPrefs.getCourseListFilePath());
-        CourseManager courseManager;
-        try {
-            Optional<CourseList> courseListOptional = modules.readCourseList();
-            if (!courseListOptional.isPresent()) {
-                logger.info("Data file not found. Will be starting with an empty CourseList");
-                courseManager = new CourseManager();
-            } else {
-                CourseList courseList = courseListOptional.get();
-                courseManager = new CourseManager(courseList);
-            }
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty CourseList");
-            courseManager = new CourseManager();
-        }
-        return courseManager;
-    }
-
-    /**
-     * Returns a {@code ProfileManager} with the data from {@code userPrefs}. <br>
-     * An empty profile list will be used instead if a profile list is not found at
-     * {@code userPrefs.getProfileListFilePath()} or errors occur when reading the profile list at that location.
-     */
-    private ProfileManager initProfileManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
+    private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ProfileList> profileListOptional;
-        ProfileList initialData;
+        Optional<ModuleList> moduleListOptional;
+        Optional<CourseList> courseListOptional;
+        ProfileList profileList;
+        ModuleList moduleList;
+        CourseList courseList;
+
         try {
             profileListOptional = storage.readProfileList();
             if (!profileListOptional.isPresent()) {
                 logger.info("Data file not found. Will be starting with an empty ProfileList");
-                initialData = new ProfileList();
-            } else {
-                initialData = profileListOptional.get();
             }
+            profileList = profileListOptional.orElseGet(ProfileList::new);
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty ProfileList");
-            initialData = new ProfileList();
+            profileList = new ProfileList();
         } catch (IOException e) {
             logger.warning("Problem while reading from the file. Will be starting with an empty ProfileList");
-            initialData = new ProfileList();
+            profileList = new ProfileList();
         }
-        return new ProfileManager(initialData, userPrefs);
+
+        try {
+            moduleListOptional = storage.readModuleList();
+            if (!moduleListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with an empty ModuleList");
+            }
+            moduleList = moduleListOptional.orElseGet(ModuleList::new);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty ModuleList");
+            moduleList = new ModuleList();
+        }
+
+        try {
+            courseListOptional = storage.readCourseList();
+            if (!courseListOptional.isPresent()) {
+                logger.info("Data file not found. Will be starting with an empty CourseList");
+            }
+            courseList = courseListOptional.orElseGet(CourseList::new);
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty CourseList");
+            courseList = new CourseList();
+        }
+
+        return new ModelManager(profileList, moduleList, courseList, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -231,7 +206,7 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("============================ [ Stopping MODdy ] =============================");
         try {
-            storage.saveUserPrefs(profileManager.getUserPrefs());
+            storage.saveUserPrefs(model.getUserPrefs());
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

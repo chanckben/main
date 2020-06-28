@@ -7,7 +7,11 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.*;
+import seedu.address.model.CourseList;
+import seedu.address.model.ModuleList;
+import seedu.address.model.ProfileList;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
 
 //@@author chanckben
 
@@ -85,12 +89,12 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ModuleList> readModuleList() throws DataConversionException, IOException {
+    public Optional<ModuleList> readModuleList() throws DataConversionException {
         return readModuleList(moduleListStorage.getModuleListFilePath());
     }
 
     @Override
-    public Optional<ModuleList> readModuleList(String filePath) throws DataConversionException, IOException {
+    public Optional<ModuleList> readModuleList(String filePath) throws DataConversionException {
         logger.fine("Attempting to read data from file: " + filePath);
         return moduleListStorage.readModuleList(filePath);
     }
@@ -103,12 +107,12 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<CourseList> readCourseList() throws DataConversionException, IOException {
+    public Optional<CourseList> readCourseList() throws DataConversionException {
         return readCourseList(courseListStorage.getCourseListFilePath());
     }
 
     @Override
-    public Optional<CourseList> readCourseList(String filePath) throws DataConversionException, IOException {
+    public Optional<CourseList> readCourseList(String filePath) throws DataConversionException {
         logger.fine("Attempting to read data from file: " + filePath);
         return courseListStorage.readCourseList(filePath);
     }

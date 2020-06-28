@@ -16,10 +16,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.CourseManager;
+import seedu.address.model.Model;
 import seedu.address.model.ModuleList;
-import seedu.address.model.ModuleManager;
-import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
@@ -80,7 +78,7 @@ public class AddCommand extends Command {
         }
     }
 
-    @Override
+    /*@Override
     public CommandResult execute(ProfileManager profileManager, CourseManager courseManager,
                                  ModuleManager moduleManager) throws CommandException {
         requireNonNull(profileManager);
@@ -187,10 +185,7 @@ public class AddCommand extends Command {
                 throw new CommandException(MESSAGE_DEADLINE_INVALID_SEMESTER);
             }
             if (!hasModule && addSemester != currentSemester) {
-                /*
-                 This module has not been added anywhere
-                 and semester given by user does not match current semester
-                 */
+                // This module has not been added anywhere and semester given by user does not match current semester
                 throw new CommandException(MESSAGE_DEADLINE_INVALID_SEMESTER);
             }
 
@@ -257,6 +252,189 @@ public class AddCommand extends Command {
                 messageShown = MESSAGE_ADD_SUCCESS;
             }
             profileManager.setDisplayedView(profile);
+            profile.updateCap();
+            return new CommandResult(String.format(messageShown, moduleCodeToAdd), true);
+        } else {
+            messageShown = MESSAGE_EDIT_SUCCESS;
+            if (addDeadlines != null) {
+                messageShown += addDeadlineAppendMsg;
+            }
+        }
+
+        profile.updateCap();
+        return new CommandResult(String.format(messageShown, moduleCodeToAdd), false);
+    }*/
+
+    @Override
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
+
+        if (!model.hasOneProfile()) {
+            throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
+        }
+        Profile profile = model.getFirstProfile();
+
+        // If some module codes are invalid, raise error
+        // If there are multiple modules and some modules currently exist, raise error
+        List<ModuleCode> invalidMods = new ArrayList<>();
+        List<ModuleCode> existingMods = new ArrayList<>();
+        for (ModuleCode moduleCode: toAdd) {
+            if (!model.hasModule(moduleCode)) {
+                invalidMods.add(moduleCode);
+            }
+            if (profile.hasModule(moduleCode)) {
+                existingMods.add(moduleCode);
+            }
+        }
+        if (!invalidMods.isEmpty()) {
+            throw new CommandException(String.format(MESSAGE_INVALID_MODULE, invalidMods));
+        }
+        if (toAdd.size() > 1 && !existingMods.isEmpty()) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE, existingMods));
+        }
+
+        // Case of multiple module codes: Execute AddCommand multiple times
+        if (toAdd.size() > 1) {
+            List<ModuleCode> modsUnfulfilledPrereqs = new ArrayList<>();
+            StringBuilder prereqMsg = new StringBuilder();
+            for (ModuleCode moduleCode: toAdd) {
+                AddCommand command = new AddCommand(Collections.singletonList(moduleCode), addSemester, null,
+                        new ArrayList<>());
+                CommandResult result = command.execute(model);
+                // Store unfulfilled prerequisites in a list and provide user with more information
+                if (result.getFeedbackToUser().contains("prerequisites")) {
+                    modsUnfulfilledPrereqs.add(moduleCode);
+                    prereqMsg.append(String.format(PREREQ_STRING, moduleCode,
+                            model.getModule(moduleCode).getPrereqs()));
+                }
+            }
+            // Modules with unfulfilled prerequisites are being added
+            if (modsUnfulfilledPrereqs.size() > 0) {
+                int year = (addSemester + 1) / 2;
+                int sem = 2 - (addSemester % 2);
+                return new CommandResult(
+                        String.format(MESSAGE_UNFULFILLED_PREREQS, modsUnfulfilledPrereqs, year, sem) + prereqMsg,
+                        true);
+            }
+            // All prerequisites of modules are fulfilled
+            return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, toAdd), true);
+        }
+
+        ModuleCode moduleCodeToAdd = toAdd.iterator().next();
+        Module moduleToAdd = model.getModule(moduleCodeToAdd);
+        boolean hasModule = false;
+        int semesterOfModule = 0;
+
+        // Check whether this module has been added to Profile semester TreeMap
+        for (ModuleList semesterList: profile.getSemModTreeMap().values()) {
+            for (Module moduleInSem: semesterList) {
+                if (moduleToAdd.isSameModule(moduleInSem)) {
+                    hasModule = true;
+                    moduleToAdd = moduleInSem;
+                    TreeMap<Integer, ModuleList> treeMap = profile.getSemModTreeMap();
+                    semesterOfModule = getKey(treeMap, semesterList);
+                }
+            }
+        }
+
+        Personal personal;
+        if (hasModule) { // Module already added to semester
+            personal = moduleToAdd.getPersonal();
+            if (addGrade == null && addDeadlines == null) {
+                throw new CommandException(String.format(MESSAGE_DUPLICATE_MODULE, moduleCodeToAdd));
+            }
+        } else { // Module does not exist
+            if (addSemester == 0 | addDeadlines != null) {
+                throw new CommandException(MESSAGE_MODULE_NOT_ADDED);
+            }
+            // Create Personal object
+            personal = new Personal();
+
+        }
+
+        int currentSemester = profile.getOverallSemester();
+
+        if (addGrade != null && !hasModule) {
+            personal.setGrade(addGrade);
+        } else if (addGrade != null && hasModule) {
+            throw new CommandException("To add grade to an existing module, use: edit m/MODULE g/GRADE");
+        }
+
+        String addDeadlineAppendMsg = "";
+        if (addDeadlines != null) {
+            // Check if the deadline is added to a module in the current semester
+            if (hasModule && semesterOfModule != currentSemester) {
+                // This module has been added but it is not in current semester
+                throw new CommandException(MESSAGE_DEADLINE_INVALID_SEMESTER);
+            }
+            if (!hasModule && addSemester != currentSemester) {
+                // This module has not been added anywhere and semester given by user does not match current semester
+                throw new CommandException(MESSAGE_DEADLINE_INVALID_SEMESTER);
+            }
+
+            if (!hasModule) {
+                try {
+                    profile.addModule(addSemester, moduleToAdd);
+                    hasModule = true;
+                } catch (MaxModsException e) {
+                    throw new CommandException(MESSAGE_MAX_MODS);
+                }
+            }
+
+            String addDeadlinesSuccessAppendMsg = "";
+            String addDeadlinesDuplicateAppendMsg = "";
+            for (Deadline deadline : addDeadlines) {
+                if (personal.hasDeadline(deadline)) {
+                    if (addDeadlinesDuplicateAppendMsg.equals("")) {
+                        addDeadlinesDuplicateAppendMsg += "\nFailed to add these duplicate task(s): ";
+                    }
+                    addDeadlinesDuplicateAppendMsg += deadline.getDescription() + "; ";
+                } else {
+                    if (addDeadlinesSuccessAppendMsg.equals("")) {
+                        addDeadlinesSuccessAppendMsg += "\nThese task(s) have been added: ";
+                    }
+                    addDeadlinesSuccessAppendMsg += deadline.getDescription() + "; ";
+                    personal.addDeadline(deadline);
+                    model.addDeadline(deadline);
+                }
+            }
+            if (!addDeadlinesSuccessAppendMsg.equals("")) {
+                addDeadlineAppendMsg += addDeadlinesSuccessAppendMsg;
+            }
+            if (!addDeadlinesDuplicateAppendMsg.equals("")) {
+                addDeadlineAppendMsg += addDeadlinesDuplicateAppendMsg;
+            }
+        }
+
+        // Set the status of the module
+        if (addSemester < currentSemester) {
+            personal.setStatus("completed");
+        } else if (addSemester == currentSemester) {
+            personal.setStatus("in progress");
+        } else {
+            personal.setStatus("not taken");
+        }
+
+        moduleToAdd.setPersonal(personal);
+
+        String messageShown;
+        if (!hasModule) {
+            try {
+                profile.addModule(addSemester, moduleToAdd);
+            } catch (MaxModsException e) {
+                throw new CommandException(MESSAGE_MAX_MODS);
+            }
+            // Check if prerequisites of the module have been fulfilled
+            if (moduleToAdd.getPrereqTreeNode() != null && !moduleToAdd.getPrereqTreeNode()
+                    .hasFulfilledPrereqs(profile.getAllModuleCodesBefore(addSemester))) {
+                int year = (addSemester + 1) / 2;
+                int sem = 2 - (addSemester % 2);
+                messageShown = String.format(MESSAGE_UNFULFILLED_PREREQS, moduleCodeToAdd, year, sem)
+                        + String.format(PREREQ_STRING, moduleCodeToAdd, moduleToAdd.getPrereqs());
+            } else {
+                messageShown = MESSAGE_ADD_SUCCESS;
+            }
+            model.setDisplayedView(profile);
             profile.updateCap();
             return new CommandResult(String.format(messageShown, moduleCodeToAdd), true);
         } else {

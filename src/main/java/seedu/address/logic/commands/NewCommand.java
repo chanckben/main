@@ -6,9 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.CourseManager;
-import seedu.address.model.ModuleManager;
-import seedu.address.model.ProfileManager;
+import seedu.address.model.Model;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.exceptions.DuplicatePersonException;
 
@@ -42,19 +40,16 @@ public class NewCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ProfileManager profileManager, CourseManager courseManager,
-                                 ModuleManager moduleManager) throws CommandException {
-        requireNonNull(profileManager);
-        requireNonNull(courseManager);
-        requireNonNull(moduleManager);
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
 
-        if (!profileManager.getProfileList().isEmpty()) {
+        if (!model.getProfileList().isEmpty()) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PROFILE,
-                    profileManager.getFirstProfile().getName()));
+                    model.getFirstProfile().getName()));
         }
 
         try {
-            profileManager.addProfile(toAdd);
+            model.addProfile(toAdd);
         } catch (DuplicatePersonException e) {
             throw new CommandException(String.format(MESSAGE_DUPLICATE_PROFILE, toAdd.getName()));
         }

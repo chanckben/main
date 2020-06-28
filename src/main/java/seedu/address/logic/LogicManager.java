@@ -13,8 +13,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ModdyParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.CourseManager;
-import seedu.address.model.ModuleManager;
+import seedu.address.model.Model;
 import seedu.address.model.ProfileList;
 import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Profile;
@@ -29,18 +28,14 @@ public class LogicManager implements Logic {
     public static final String FILE_OPS_ERROR_MESSAGE = "Could not save data to file: ";
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
-    private final ProfileManager profileManager;
     private final Storage storage;
     private final ModdyParser moddyParser;
-    private final CourseManager courseManager;
-    private final ModuleManager moduleManager;
 
-    public LogicManager(ProfileManager profileManager, Storage storage, CourseManager courseManager,
-                        ModuleManager moduleManager) {
-        this.profileManager = profileManager;
+    private final Model model;
+
+    public LogicManager(Model model, Storage storage) {
+        this.model = model;
         this.storage = storage;
-        this.courseManager = courseManager;
-        this.moduleManager = moduleManager;
         moddyParser = new ModdyParser();
     }
 
@@ -53,13 +48,13 @@ public class LogicManager implements Logic {
         //parse user input from String to a Command
         Command command = moddyParser.parseCommand(commandText);
         //executes the Command and stores the result
-        commandResult = command.execute(profileManager, courseManager, moduleManager);
+        commandResult = command.execute(model);
 
         try {
             //can assume that previous line of code modifies model in some way
             //since it is being stored here
             //storage.saveAddressBook(model.getAddressBook());
-            storage.saveProfileList(profileManager.getProfileList());
+            storage.saveProfileList(model.getProfileList());
         } catch (IOException ioe) {
             throw new CommandException(FILE_OPS_ERROR_MESSAGE + ioe, ioe);
         }
@@ -69,57 +64,47 @@ public class LogicManager implements Logic {
 
     @Override
     public ProfileList getProfileList() {
-        return profileManager.getProfileList();
+        return model.getProfileList();
     }
-
-    /*@Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return model.getAddressBook();
-    }*/
 
     @Override
     public ObservableList<Profile> getFilteredPersonList() {
-        return profileManager.getFilteredPersonList();
+        return model.getFilteredPersonList();
     }
 
     @Override
     public Path getProfileListFilePath() {
-        return profileManager.getProfileListFilePath();
+        return model.getProfileListFilePath();
     }
-
-    /*@Override
-    public Path getAddressBookFilePath() {
-        return model.getAddressBookFilePath();
-    }*/
 
     @Override
     public GuiSettings getGuiSettings() {
-        return profileManager.getGuiSettings();
+        return model.getGuiSettings();
     }
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
-        profileManager.setGuiSettings(guiSettings);
+        model.setGuiSettings(guiSettings);
     }
 
     @Override
     public ObservableList<Deadline> getFilteredDeadlineList() {
-        if (profileManager.getFilteredPersonList().size() == 1) { //profile exists
-            if (profileManager.getFirstProfile().getCurModules() != null) {
-                profileManager.loadDeadlines();
+        if (model.getFilteredPersonList().size() == 1) { //profile exists
+            if (model.getFirstProfile().getCurModules() != null) {
+                model.loadDeadlines();
             }
         }
-        return profileManager.getSortedDeadlineList();
+        return model.getSortedDeadlineList();
     }
 
     @Override
     public Optional<Object> getDisplayedView() {
-        return profileManager.getDisplayedView();
+        return model.getDisplayedView();
     }
 
     @Override
     public ProfileManager getProfileManager() {
-        return profileManager;
+        return model.getProfileManager();
     }
 
 }

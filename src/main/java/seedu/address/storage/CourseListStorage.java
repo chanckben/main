@@ -1,11 +1,14 @@
 package seedu.address.storage;
 
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.CourseList;
-
 import java.io.IOException;
 import java.util.Optional;
 
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.CourseList;
+
+/**
+ * Represents a storage for {@link seedu.address.model.CourseList}.
+ */
 public interface CourseListStorage {
 
     /**
@@ -19,10 +22,10 @@ public interface CourseListStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<CourseList> readCourseList() throws DataConversionException, IOException;
+    Optional<CourseList> readCourseList() throws DataConversionException;
 
     /**
-     * @see #getModuleListFilePath()
+     * @see #getCourseListFilePath()
      */
-    Optional<CourseList> readCourseList(String filePath) throws DataConversionException, IOException;
+    Optional<CourseList> readCourseList(String filePath) throws DataConversionException;
 }

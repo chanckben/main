@@ -5,7 +5,11 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.*;
+import seedu.address.model.CourseList;
+import seedu.address.model.ModuleList;
+import seedu.address.model.ProfileList;
+import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.UserPrefs;
 
 //@@author chanckben
 
@@ -32,11 +36,11 @@ public interface Storage extends ProfileListStorage, ModuleListStorage, CourseLi
     String getModuleListFilePath();
 
     @Override
-    Optional<ModuleList> readModuleList() throws DataConversionException, IOException;
+    Optional<ModuleList> readModuleList() throws DataConversionException;
 
     @Override
     String getCourseListFilePath();
 
     @Override
-    Optional<CourseList> readCourseList() throws DataConversionException, IOException;
+    Optional<CourseList> readCourseList() throws DataConversionException;
 }

@@ -91,6 +91,9 @@ public class ProfileManager {
         return profileList;
     }
 
+    /**
+     * Returns true if the ProfileManager contains a profile with given name.
+     */
     public boolean hasProfile(Name name) {
         requireNonNull(name);
         return profileList.hasProfileWithName(name);
@@ -118,6 +121,9 @@ public class ProfileManager {
         return filteredProfiles;
     }
 
+    /**
+     * Updates the FilteredList of persons with the given predicate.
+     */
     public void updateFilteredPersonList(Predicate<Profile> predicate) {
         requireNonNull(predicate);
         filteredProfiles.setPredicate(predicate);
@@ -139,11 +145,17 @@ public class ProfileManager {
         return sortedDeadlines;
     }
 
+    /**
+     * Adds a deadline to the deadlineList.
+     */
     public void addDeadline(Deadline deadline) {
         requireNonNull(deadline);
         this.deadlineList.add(deadline);
     }
 
+    /**
+     * Deletes a deadline from the deadlineList.
+     */
     public void deleteDeadline(Deadline deadline) {
         requireNonNull(deadline);
         Iterator<Deadline> iter = this.deadlineList.iterator();
@@ -190,6 +202,9 @@ public class ProfileManager {
         this.deadlineList.addAll(this.profileList.getProfileList().get(0).getDeadlines());
     }
 
+    /**
+     * Deletes all deadlines of a given module from the deadlineList.
+     */
     public void deleteModuleDeadlines(ModuleCode mc) {
         Iterator<Deadline> iter = this.deadlineList.iterator();
         while (iter.hasNext()) {
@@ -200,6 +215,7 @@ public class ProfileManager {
         }
     }
 
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -249,6 +265,9 @@ public class ProfileManager {
         }
     }
 
+    /**
+     * Remove all deadlines of a given module from deadlineList (repetition of deleteModuleDeadlines?)
+     */
     public void deleteModuleFromDeadlineList(ModuleCode moduleCode) {
         for (Deadline deadline : this.deadlineList) {
             if (deadline.getModuleCode().equals(moduleCode)) {

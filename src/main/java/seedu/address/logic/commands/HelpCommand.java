@@ -2,9 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.CourseManager;
-import seedu.address.model.ModuleManager;
-import seedu.address.model.ProfileManager;
+import seedu.address.model.Model;
 
 //@@author jadetayy
 
@@ -21,11 +19,8 @@ public class HelpCommand extends Command {
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
 
     @Override
-    public CommandResult execute(ProfileManager profileManager, CourseManager courseManager,
-                                 ModuleManager moduleManager) {
-        requireNonNull(profileManager);
-        requireNonNull(courseManager);
-        requireNonNull(moduleManager);
+    public CommandResult execute(Model model) {
+        requireNonNull(model);
 
         return new CommandResult(SHOWING_HELP_MESSAGE, true, false, false);
     }

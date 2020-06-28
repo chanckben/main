@@ -11,10 +11,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_YEAR;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.CourseManager;
+import seedu.address.model.Model;
 import seedu.address.model.ModuleList;
-import seedu.address.model.ModuleManager;
-import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.Year;
@@ -52,8 +50,7 @@ public class ShowCommand extends Command {
     private Object toShow;
     /**
      * Creates a ShowCommand to show the specified object
-     * @param toParse - Can be any object from this list: (Course,
-     *               CourseFocusArea, Module, List of Modules in a semester)
+     * Can be any object from this list: (Course, CourseFocusArea, Module, List of Modules in a semester)
      */
 
     public ShowCommand(Name name) {
@@ -82,23 +79,20 @@ public class ShowCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ProfileManager profileManager, CourseManager courseManager,
-                                 ModuleManager moduleManager) throws CommandException {
-        requireNonNull(profileManager);
-        requireNonNull(courseManager);
-        requireNonNull(moduleManager);
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
 
         String message = "";
         try {
             if (toParse instanceof Name) {
                 message = MESSAGE_SUCCESS_NAME;
 
-                if (profileManager.getFilteredPersonList().size() != 0) {
-                    Profile profile = profileManager.getFirstProfile();
+                if (model.getFilteredPersonList().size() != 0) {
+                    Profile profile = model.getFirstProfile();
 
                     if ((profile.getName().toString().toLowerCase()).equals(toParse.toString().toLowerCase())) {
                         toShow = profile;
-                        profileManager.setDisplayedView((Profile) toShow);
+                        model.setDisplayedView((Profile) toShow);
                     } else {
                         throw new CommandException("Profile with name does not exist.");
                     }
@@ -107,39 +101,39 @@ public class ShowCommand extends Command {
                 }
 
             } else if (toParse instanceof Year) {
-                if (!profileManager.hasOneProfile()) {
+                if (!model.hasOneProfile()) {
                     throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
                 }
 
                 message = MESSAGE_SUCCESS_MODULE_LIST;
                 Integer semester = ((Year) toParse).getSemester();
-                toShow = profileManager.getFirstProfile().getModules(semester);
+                toShow = model.getFirstProfile().getModules(semester);
                 FilteredList<Module> filteredModules = new FilteredList<>(((ModuleList) toShow).getModuleList());
-                profileManager.setDisplayedView(filteredModules);
+                model.setDisplayedView(filteredModules);
 
             } else if (toParse instanceof ModuleCode) {
                 message = MESSAGE_SUCCESS_MODULE;
                 ModuleCode moduleCode = (ModuleCode) toParse;
 
-                if (!moduleManager.hasModule(moduleCode)) {
+                if (!model.hasModule(moduleCode)) {
                     throw new CommandException(String.format(MESSAGE_INVALID_MODULE, moduleCode));
                 }
 
-                toShow = moduleManager.getModule(moduleCode);
-                profileManager.setDisplayedView((Module) toShow);
+                toShow = model.getModule(moduleCode);
+                model.setDisplayedView((Module) toShow);
 
             } else if (toParse instanceof String) {
                 message = MESSAGE_SUCCESS_FOCUS_AREA;
                 String focusArea = (String) toParse;
-                toShow = courseManager.getCourseFocusArea(focusArea); (
-                        (CourseFocusArea) toShow).initListModule(moduleManager.getModuleList());
-                profileManager.setDisplayedView((CourseFocusArea) toShow);
+                toShow = model.getCourseFocusArea(focusArea); (
+                        (CourseFocusArea) toShow).initListModule(model.getModuleList());
+                model.setDisplayedView((CourseFocusArea) toShow);
 
             } else if (toParse instanceof CourseName) {
                 message = MESSAGE_SUCCESS_COURSE;
                 CourseName courseName = (CourseName) toParse;
-                toShow = courseManager.getCourse(courseName);
-                profileManager.setDisplayedView((Course) toShow);
+                toShow = model.getCourse(courseName);
+                model.setDisplayedView((Course) toShow);
 
             }
 

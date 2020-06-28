@@ -1,17 +1,12 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
@@ -23,240 +18,207 @@ import seedu.address.model.profile.course.module.ModuleCode;
 import seedu.address.model.profile.course.module.personal.Deadline;
 
 /**
- * Model containing all profile, module and course information.
+ * A default model stub that have all of the methods failing.
  */
-public class ModelManager implements Model {
-    private static final Logger logger = LogsCenter.getLogger(ProfileManager.class);
-
-    private final ProfileManager profileManager;
-    private final ModuleManager moduleManager;
-    private final CourseManager courseManager;
-    private final UserPrefs userPrefs;
-
-    public ModelManager(
-            ProfileList profileList, ModuleList moduleList, CourseList courseList, ReadOnlyUserPrefs userPrefs) {
-        super();
-        requireAllNonNull(profileList, moduleList, courseList, userPrefs);
-
-        logger.fine("Initializing with MODdy " + profileList + " and user prefs " + userPrefs);
-
-        profileManager = new ProfileManager(profileList, userPrefs);
-        moduleManager = new ModuleManager(moduleList);
-        courseManager = new CourseManager(courseList);
-        this.userPrefs = new UserPrefs(userPrefs);
-    }
-
-    public ModelManager() {
-        this(new ProfileList(), new ModuleList(), new CourseList(), new UserPrefs());
-    }
-
-    // ================ UserPrefs methods ==============================
+public class ModelStub implements Model {
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
-        requireNonNull(userPrefs);
-        this.userPrefs.resetData(userPrefs);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public ReadOnlyUserPrefs getUserPrefs() {
-        return userPrefs;
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public GuiSettings getGuiSettings() {
-        return userPrefs.getGuiSettings();
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void setGuiSettings(GuiSettings guiSettings) {
-        requireNonNull(guiSettings);
-        userPrefs.setGuiSettings(guiSettings);
+        throw new AssertionError("This method should not be called.");
     }
-
-    // ================ ProfileManager methods ==============================
 
     @Override
     public Path getProfileListFilePath() {
-        return profileManager.getProfileListFilePath();
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void setProfileListFilePath(Path profileListFilePath) {
-        profileManager.setProfileListFilePath(profileListFilePath);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void setProfileList(ProfileList profileList) {
-        profileManager.setProfileList(profileList);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public ProfileList getProfileList() {
-        return profileManager.getProfileList();
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void deleteProfile(Profile target) {
-        profileManager.deleteProfile(target);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void addProfile(Profile profile) {
-        profileManager.addProfile(profile);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void setProfile(Profile target, Profile editedProfile) {
-        profileManager.setProfile(target, editedProfile);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public ObservableList<Profile> getFilteredPersonList() {
-        return profileManager.getFilteredPersonList();
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public ObservableList<Deadline> getSortedDeadlineList() {
-        return profileManager.getSortedDeadlineList();
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void updateFilteredPersonList(Predicate<Profile> predicate) {
-        profileManager.updateFilteredPersonList(predicate);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public boolean hasProfile(Name name) {
-        return profileManager.hasProfile(name);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public Profile getProfile(Name name) {
-        return profileManager.getProfile(name);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public boolean hasOneProfile() {
-        return profileManager.hasOneProfile();
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public Profile getFirstProfile() {
-        return profileManager.getFirstProfile();
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void addDeadline(Deadline deadline) {
-        profileManager.addDeadline(deadline);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void deleteDeadline(Deadline deadline) {
-        profileManager.deleteDeadline(deadline);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void replaceDeadline(Deadline oldDeadline, Deadline newDeadline) {
-        profileManager.replaceDeadline(oldDeadline, newDeadline);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void clearDeadlineList() {
-        profileManager.clearDeadlineList();
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void loadDeadlines() {
-        profileManager.loadDeadlines();
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void deleteModuleDeadlines(ModuleCode mc) {
-        profileManager.deleteModuleDeadlines(mc);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public Optional<Object> getDisplayedView() {
-        return profileManager.getDisplayedView();
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void setDisplayedView(ObservableList<Module> toDisplay) {
-        profileManager.setDisplayedView(toDisplay);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void setDisplayedView(Profile toDisplay) {
-        profileManager.setDisplayedView(toDisplay);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void setDisplayedView(Module toDisplay) {
-        profileManager.setDisplayedView(toDisplay);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void setDisplayedView(Course toDisplay) {
-        profileManager.setDisplayedView(toDisplay);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void setDisplayedView(CourseFocusArea toDisplay) {
-        profileManager.setDisplayedView(toDisplay);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void setNewDeadlineList(Profile editedProfile) {
-        profileManager.setNewDeadlineList(editedProfile);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public void deleteModuleFromDeadlineList(ModuleCode moduleCode) {
-        profileManager.deleteModuleFromDeadlineList(moduleCode);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public ProfileManager getProfileManager() {
-        return profileManager;
+        throw new AssertionError("This method should not be called.");
     }
-
-    // ================ ModuleManager methods ==============================
 
     @Override
     public boolean hasModule(ModuleCode moduleCode) {
-        return moduleManager.hasModule(moduleCode);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public boolean hasModules(List<ModuleCode> moduleCodes) {
-        return moduleManager.hasModules(moduleCodes);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public Module getModule(ModuleCode moduleCode) {
-        return moduleManager.getModule(moduleCode);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public List<Module> getModules(List<ModuleCode> moduleCodes) {
-        return moduleManager.getModules(moduleCodes);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public ModuleList getModuleList() {
-        return moduleManager.getModuleList();
+        throw new AssertionError("This method should not be called.");
     }
-
-    // ================ CourseManager methods ==============================
 
     @Override
     public Course getCourse(CourseName courseName) throws ParseException {
-        return courseManager.getCourse(courseName);
+        throw new AssertionError("This method should not be called.");
     }
 
     @Override
     public CourseFocusArea getCourseFocusArea(String focusAreaName) throws ParseException {
-        return courseManager.getCourseFocusArea(focusAreaName);
+        throw new AssertionError("This method should not be called.");
     }
 }

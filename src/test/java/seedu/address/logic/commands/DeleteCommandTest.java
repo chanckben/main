@@ -1,16 +1,13 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_DATE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DEADLINE_TIME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_MODCODE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
@@ -33,34 +30,16 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.CourseManager;
-import seedu.address.model.ModuleManager;
-import seedu.address.model.ProfileManager;
+import seedu.address.model.ModelManagerStub;
+import seedu.address.model.ModelManagerStubWithEmptyProfile;
+import seedu.address.model.ModelManagerStubWithNonEmptyProfileModule;
+import seedu.address.model.ModelStubEmpty;
+import seedu.address.model.ModelStubWithEmptyProfile;
+import seedu.address.model.ModelStubWithNonEmptyProfileModule;
 import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.course.AcceptedCourses;
-import seedu.address.model.profile.course.AcceptedFocusArea;
-import seedu.address.model.profile.course.Course;
-import seedu.address.model.profile.course.CourseName;
-import seedu.address.model.profile.course.FocusArea;
-import seedu.address.model.profile.course.module.Description;
-import seedu.address.model.profile.course.module.ModularCredits;
-import seedu.address.model.profile.course.module.Module;
 import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.Preclusions;
-import seedu.address.model.profile.course.module.PrereqTreeNode;
-import seedu.address.model.profile.course.module.Prereqs;
-import seedu.address.model.profile.course.module.SemesterData;
-import seedu.address.model.profile.course.module.Title;
 import seedu.address.model.profile.course.module.personal.Deadline;
-import seedu.address.model.profile.course.module.personal.Personal;
-import seedu.address.model.profile.exceptions.MaxModsException;
 
 //@@author wanxuanong
 
@@ -72,8 +51,12 @@ public class DeleteCommandTest {
         Name name = new Name(VALID_NAME_AMY);
         DeleteCommand deleteCommandName = new DeleteCommand(name);
 
+        // Unit Test
         assertThrows(CommandException.class, String.format(MESSAGE_DELETE_PROFILE_FAILURE, name), () ->
-                deleteCommandName.execute(new ProfileManagerStub(), new CourseManagerStub(), new ModuleManagerStub()));
+                deleteCommandName.execute(new ModelStubEmpty()));
+        // Integration Test
+        assertThrows(CommandException.class, String.format(MESSAGE_DELETE_PROFILE_FAILURE, name), () ->
+                deleteCommandName.execute(new ModelManagerStub()));
     }
 
     // No name, user inputs "delete n/"
@@ -88,9 +71,12 @@ public class DeleteCommandTest {
     public void execute_invalidName_throwsCommandException() {
         DeleteCommand invalidName = new DeleteCommand(new Name("Mark"));
 
+        // Unit Test
         assertThrows(CommandException.class, String.format(MESSAGE_DELETE_PROFILE_FAILURE, "mark"), () ->
-                invalidName.execute(new ProfileManagerWithEmptyProfile(), new CourseManagerStub(),
-                        new ModuleManagerStub()));
+                invalidName.execute(new ModelStubWithEmptyProfile()));
+        // Integration Test
+        assertThrows(CommandException.class, String.format(MESSAGE_DELETE_PROFILE_FAILURE, "mark"), () ->
+                invalidName.execute(new ModelManagerStubWithEmptyProfile()));
     }
 
 
@@ -109,9 +95,12 @@ public class DeleteCommandTest {
         ModuleCode moduleCode = new ModuleCode(VALID_MODCODE_BOB);
         DeleteCommand deleteCommand = new DeleteCommand(Collections.singletonList(moduleCode));
 
+        // Unit Test
         assertThrows(CommandException.class, String.format(MESSAGE_NOT_TAKING_MODULE, Arrays.asList(moduleCode)), () ->
-                deleteCommand.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
-                        new ModuleManagerStubCs()));
+                deleteCommand.execute(new ModelStubWithNonEmptyProfileModule()));
+        // Integration Test
+        assertThrows(CommandException.class, String.format(MESSAGE_NOT_TAKING_MODULE, Arrays.asList(moduleCode)), () ->
+                deleteCommand.execute(new ModelManagerStubWithNonEmptyProfileModule()));
     }
 
 
@@ -124,18 +113,20 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommandNoCap = new DeleteCommand(Collections.singletonList(new ModuleCode("cs1231")));
 
         try {
-            assertTrue(deleteCommandAllCap.execute(
-                    new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
-                    new ModuleManagerStubCs()).getFeedbackToUser().equals(
-                    String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleCode)));
-            assertTrue(deleteCommandVariety.execute(
-                    new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
-                    new ModuleManagerStubCs()).getFeedbackToUser().equals(
-                    String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleCode)));
-            assertTrue(deleteCommandNoCap.execute(
-                    new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
-                    new ModuleManagerStubCs()).getFeedbackToUser().equals(
-                            String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleCode)));
+            // Unit Tests
+            assertTrue(deleteCommandAllCap.execute(new ModelStubWithNonEmptyProfileModule()).getFeedbackToUser()
+                    .equals(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleCode)));
+            assertTrue(deleteCommandVariety.execute(new ModelStubWithNonEmptyProfileModule()).getFeedbackToUser()
+                    .equals(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleCode)));
+            assertTrue(deleteCommandNoCap.execute(new ModelStubWithNonEmptyProfileModule()).getFeedbackToUser()
+                    .equals(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleCode)));
+            // Integration Tests
+            assertTrue(deleteCommandAllCap.execute(new ModelManagerStubWithNonEmptyProfileModule()).getFeedbackToUser()
+                    .equals(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleCode)));
+            assertTrue(deleteCommandVariety.execute(new ModelManagerStubWithNonEmptyProfileModule()).getFeedbackToUser()
+                    .equals(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleCode)));
+            assertTrue(deleteCommandNoCap.execute(new ModelManagerStubWithNonEmptyProfileModule()).getFeedbackToUser()
+                    .equals(String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleCode)));
         } catch (CommandException e) {
             fail();
         }
@@ -151,9 +142,12 @@ public class DeleteCommandTest {
         moduleCodes.add(moduleCodeMa);
         DeleteCommand deleteCommandModule = new DeleteCommand(moduleCodes);
 
+        // Unit Test
         assertThrows(CommandException.class, String.format(MESSAGE_INVALID_MODULE, moduleCodes), () ->
-                deleteCommandModule.execute(
-                        new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+                deleteCommandModule.execute(new ModelStubWithNonEmptyProfileModule()));
+        // Integration Test
+        assertThrows(CommandException.class, String.format(MESSAGE_INVALID_MODULE, moduleCodes), () ->
+                deleteCommandModule.execute(new ModelManagerStubWithNonEmptyProfileModule()));
     }
 
     // Some invalid module codes
@@ -168,9 +162,12 @@ public class DeleteCommandTest {
         invalidModuleCodes.add(moduleCodeCs);
         DeleteCommand deleteCommandModule = new DeleteCommand(moduleCodes);
 
+        // Unit Test
         assertThrows(CommandException.class, String.format(MESSAGE_INVALID_MODULE, invalidModuleCodes), () ->
-                deleteCommandModule.execute(
-                        new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
+                deleteCommandModule.execute(new ModelStubWithNonEmptyProfileModule()));
+        // Integration Test
+        assertThrows(CommandException.class, String.format(MESSAGE_INVALID_MODULE, invalidModuleCodes), () ->
+                deleteCommandModule.execute(new ModelManagerStubWithNonEmptyProfileModule()));
     }
 
     // Multiple modules, some modules not taking
@@ -185,10 +182,12 @@ public class DeleteCommandTest {
         modulesNotTaking.add(moduleCodeB);
         DeleteCommand deleteCommandModules = new DeleteCommand(moduleCodes);
 
+        // Unit Test
         assertThrows(CommandException.class, String.format(MESSAGE_NOT_TAKING_MODULE, modulesNotTaking), () ->
-                deleteCommandModules.execute(
-                        new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(), new ModuleManagerStubCs()));
-
+                deleteCommandModules.execute(new ModelStubWithNonEmptyProfileModule()));
+        // Integration Test
+        assertThrows(CommandException.class, String.format(MESSAGE_NOT_TAKING_MODULE, modulesNotTaking), () ->
+                deleteCommandModules.execute(new ModelManagerStubWithNonEmptyProfileModule()));
     }
 
     // Multiple modules deleted
@@ -202,8 +201,12 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommandModules = new DeleteCommand(moduleCodes);
 
         try {
-            assertEquals(deleteCommandModules.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
-                    new ModuleManagerStubCs()).getFeedbackToUser(),
+            // Unit Test
+            assertEquals(deleteCommandModules.execute(new ModelStubWithNonEmptyProfileModule()).getFeedbackToUser(),
+                    String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleCodes));
+            // Integration Test
+            assertEquals(deleteCommandModules.execute(
+                    new ModelManagerStubWithNonEmptyProfileModule()).getFeedbackToUser(),
                     String.format(MESSAGE_DELETE_MODULE_SUCCESS, moduleCodes));
         } catch (CommandException e) {
             fail();
@@ -241,8 +244,12 @@ public class DeleteCommandTest {
         updateMessage += "\n" + deleteError;
 
         try {
-            assertEquals(deleteCommandTask.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
-                            new ModuleManagerStubCs()).getFeedbackToUser(), updateMessage);
+            // Unit Test
+            assertEquals(deleteCommandTask.execute(
+                    new ModelStubWithNonEmptyProfileModule()).getFeedbackToUser(), updateMessage);
+            // Integration Test
+            assertEquals(deleteCommandTask.execute(
+                    new ModelManagerStubWithNonEmptyProfileModule()).getFeedbackToUser(), updateMessage);
         } catch (CommandException e) {
             fail();
         }
@@ -266,8 +273,12 @@ public class DeleteCommandTest {
         updateMessage += "\n" + deleteSuccess;
 
         try {
-            assertEquals(deleteCommandTasks.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
-                    new ModuleManagerStubCs()).getFeedbackToUser(), updateMessage);
+            // Unit Test
+            assertEquals(deleteCommandTasks.execute(
+                    new ModelStubWithNonEmptyProfileModule()).getFeedbackToUser(), updateMessage);
+            // Integration Test
+            assertEquals(deleteCommandTasks.execute(
+                    new ModelManagerStubWithNonEmptyProfileModule()).getFeedbackToUser(), updateMessage);
         } catch (CommandException e) {
             fail();
         }
@@ -282,10 +293,14 @@ public class DeleteCommandTest {
         String grade = VALID_GRADE_AMY;
         DeleteCommand deleteCommandGrade = new DeleteCommand(Collections.singletonList(moduleCode), grade);
 
+        // Unit Test
         assertThrows(CommandException.class,
                 String.format(MESSAGE_DELETE_GRADE_FAILURE, Arrays.asList(moduleCode)), () ->
-                        deleteCommandGrade.execute(new ProfileManagerWithNonEmptyProfile(),
-                                new CourseManagerStub(), new ModuleManagerStubCs()));
+                        deleteCommandGrade.execute(new ModelStubWithNonEmptyProfileModule()));
+        // Integration Test
+        assertThrows(CommandException.class,
+                String.format(MESSAGE_DELETE_GRADE_FAILURE, Arrays.asList(moduleCode)), () ->
+                        deleteCommandGrade.execute(new ModelManagerStubWithNonEmptyProfileModule()));
     }
 
     // Multiple modules, some missing grades
@@ -301,10 +316,14 @@ public class DeleteCommandTest {
         modulesNoGrades.add(moduleCodeCs);
         DeleteCommand deleteCommandGrades = new DeleteCommand(moduleCodes, grade);
 
+        // Unit Test
         assertThrows(CommandException.class,
                 String.format(MESSAGE_DELETE_GRADE_FAILURE, modulesNoGrades), () ->
-                        deleteCommandGrades.execute(new ProfileManagerWithNonEmptyProfile(),
-                                new CourseManagerStub(), new ModuleManagerStubCs()));
+                        deleteCommandGrades.execute(new ModelStubWithNonEmptyProfileModule()));
+        // Integration Test
+        assertThrows(CommandException.class,
+                String.format(MESSAGE_DELETE_GRADE_FAILURE, modulesNoGrades), () ->
+                        deleteCommandGrades.execute(new ModelManagerStubWithNonEmptyProfileModule()));
     }
 
     // Multiple modules' grades deleted
@@ -319,197 +338,16 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommandGrades = new DeleteCommand(moduleCodes, grade);
 
         try {
-            assertEquals(deleteCommandGrades.execute(new ProfileManagerWithNonEmptyProfile(), new CourseManagerStub(),
-                    new ModuleManagerStubCs()).getFeedbackToUser(),
+            // Unit Test
+            assertEquals(deleteCommandGrades.execute(
+                    new ModelStubWithNonEmptyProfileModule()).getFeedbackToUser(),
+                    String.format(MESSAGE_DELETE_GRADE_SUCCESS, moduleCodes));
+            // Integration Test
+            assertEquals(deleteCommandGrades.execute(
+                    new ModelManagerStubWithNonEmptyProfileModule()).getFeedbackToUser(),
                     String.format(MESSAGE_DELETE_GRADE_SUCCESS, moduleCodes));
         } catch (CommandException e) {
             fail();
-        }
-    }
-
-
-    private class ProfileManagerStub extends ProfileManager {
-        protected ObservableList<Profile> profileList = FXCollections.observableArrayList();
-        protected FilteredList<Profile> filteredProfiles;
-        protected ObservableList<Deadline> deadlineList;
-
-        private ProfileManagerStub(List<Profile> profileList) {
-            requireNonNull(profileList);
-            this.profileList.setAll(profileList);
-            filteredProfiles = new FilteredList<>(this.profileList);
-        }
-
-        public ProfileManagerStub() {
-            this(new ArrayList<>());
-        }
-
-        @Override
-        public Profile getFirstProfile() {
-            return this.profileList.get(0);
-        }
-
-        @Override
-        public ObservableList<Profile> getFilteredPersonList() {
-            return filteredProfiles;
-        }
-
-        public void setPerson(Profile target, Profile editedProfile) {
-            requireAllNonNull(target, editedProfile);
-            int index = this.profileList.indexOf(target);
-
-            this.profileList.set(index, editedProfile);
-        }
-    }
-
-    private class ProfileManagerWithNonEmptyProfile extends ProfileManagerStub {
-        private ProfileManagerWithNonEmptyProfile() {
-            Module moduleA = new Module(new ModuleCode("CS1231"), new Title(""), new Prereqs(""), new Preclusions(""),
-                    new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
-                    new PrereqTreeNode());
-            Module moduleCs = new Module(new ModuleCode("CS1101S"), new Title(""), new Prereqs(""), new Preclusions(""),
-                    new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
-                    new PrereqTreeNode());
-            Module moduleIs = new Module(new ModuleCode("IS1103"), new Title(""), new Prereqs(""), new Preclusions(""),
-                    new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
-                    new PrereqTreeNode());
-
-            Deadline deadlineA = new Deadline(VALID_MODCODE_AMY, VALID_TASK_AMY);
-            Deadline deadlineB = new Deadline(VALID_MODCODE_AMY, VALID_TASK_BOB);
-            ArrayList<Deadline> deadlines = new ArrayList<>();
-            deadlines.add(deadlineA);
-            deadlines.add(deadlineB);
-
-            String gradeA = VALID_GRADE_AMY;
-            String gradeIs = VALID_GRADE_BOB;
-
-            ObservableList<Profile> profileList = FXCollections.observableArrayList();
-            Profile profile = new Profile(new Name("JOHN"), new CourseName(
-                    AcceptedCourses.COMPUTER_SCIENCE.getName()), 1,
-                    new FocusArea(AcceptedFocusArea.COMPUTER_SECURITY.getName()));
-
-            try {
-                profile.addModule(1, moduleA);
-                profile.addModule(1, moduleCs);
-                profile.addModule(1, moduleIs);
-            } catch (MaxModsException e) {
-                fail();
-            }
-
-            Personal personalA = new Personal();
-            moduleA.setPersonal(personalA);
-            personalA.addDeadline(deadlineA);
-            personalA.addDeadline(deadlineB);
-            personalA.setGrade(gradeA);
-
-            Personal personalIs = new Personal();
-            moduleIs.setPersonal(personalIs);
-            personalIs.setGrade(gradeIs);
-            profileList.add(profile);
-            this.profileList = profileList;
-            filteredProfiles = new FilteredList<>(this.profileList);
-        }
-
-        @Override
-        public boolean hasOneProfile() {
-            return true;
-        }
-    }
-
-    private class ProfileManagerWithEmptyProfile extends ProfileManagerStub {
-        private ProfileManagerWithEmptyProfile() {
-            ObservableList<Profile> profileList = FXCollections.observableArrayList();
-            Profile profile = new Profile(new Name("John"), new CourseName(
-                    AcceptedCourses.COMPUTER_SCIENCE.getName()), 1,
-                    new FocusArea(AcceptedFocusArea.COMPUTER_SECURITY.getName()));
-            profileList.add(profile);
-            this.profileList = profileList;
-            filteredProfiles = new FilteredList<>(this.profileList);
-        }
-
-        @Override
-        public boolean hasOneProfile() {
-            return true;
-        }
-    }
-
-    private class CourseManagerStub extends CourseManager {
-        protected List<Course> courseList;
-
-        private CourseManagerStub(List<Course> courseList) {
-            requireNonNull(courseList);
-            this.courseList = courseList;
-        }
-
-        public CourseManagerStub() {
-            this(new ArrayList<>());
-        }
-
-        @Override
-        public Course getCourse(CourseName courseName) throws ParseException {
-            for (Course course : courseList) {
-                if (course.getCourseName().equals(courseName)) {
-                    return course;
-                }
-            }
-            throw new ParseException("Course does not exist");
-        }
-    }
-
-    private class ModuleManagerStub extends ModuleManager {
-        protected List<Module> moduleList;
-
-        private ModuleManagerStub(List<Module> moduleList) {
-            requireNonNull(moduleList);
-            this.moduleList = moduleList;
-        }
-
-        public ModuleManagerStub() {
-            this(new ArrayList<>());
-        }
-
-        @Override
-        public boolean hasModule(ModuleCode moduleCode) {
-            for (Module module: moduleList) {
-                if (module.getModuleCode().equals(moduleCode)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        @Override
-        public Module getModule(ModuleCode moduleCode) {
-            requireNonNull(moduleCode);
-
-            for (Module mod: moduleList) {
-                if (mod.getModuleCode().equals(moduleCode)) {
-                    return mod;
-                }
-            }
-            // Code should not reach this line
-            assert false;
-            return null;
-        }
-    }
-
-    private class ModuleManagerStubCs extends ModuleManagerStub {
-        private ModuleManagerStubCs() {
-            Module moduleAmy = new Module(new ModuleCode(VALID_MODCODE_AMY), new Title(""), new Prereqs(""),
-                    new Preclusions(""), new ModularCredits("4"), new Description(""),
-                    new SemesterData(new ArrayList<>()), new PrereqTreeNode());
-            Module moduleBob = new Module(new ModuleCode(VALID_MODCODE_BOB), new Title(""), new Prereqs(""),
-                    new Preclusions(""), new ModularCredits("4"), new Description(""),
-                    new SemesterData(new ArrayList<>()), new PrereqTreeNode());
-            Module moduleCs = new Module(new ModuleCode("CS1101S"), new Title(""), new Prereqs(""), new Preclusions(""),
-                    new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
-                    new PrereqTreeNode());
-            Module moduleIs = new Module(new ModuleCode("IS1103"), new Title(""), new Prereqs(""), new Preclusions(""),
-                    new ModularCredits("4"), new Description(""), new SemesterData(new ArrayList<>()),
-                    new PrereqTreeNode());
-            moduleList.add(moduleAmy);
-            moduleList.add(moduleBob);
-            moduleList.add(moduleCs);
-            moduleList.add(moduleIs);
         }
     }
 }

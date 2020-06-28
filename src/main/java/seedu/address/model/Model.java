@@ -105,11 +105,15 @@ public interface Model {
 
     Profile getProfile(Name name);
 
+    boolean hasOneProfile();
+
     Profile getFirstProfile();
 
     void addDeadline(Deadline deadline);
 
     void deleteDeadline(Deadline deadline);
+
+    void replaceDeadline(Deadline oldDeadline, Deadline newDeadline);
 
     void clearDeadlineList();
 
@@ -132,6 +136,8 @@ public interface Model {
     void setNewDeadlineList(Profile editedProfile);
 
     void deleteModuleFromDeadlineList(ModuleCode moduleCode);
+
+    ProfileManager getProfileManager();
 
     // ================ ModuleManager methods ==============================
 

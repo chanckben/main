@@ -21,10 +21,8 @@ import java.util.TreeMap;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.model.CourseManager;
+import seedu.address.model.Model;
 import seedu.address.model.ModuleList;
-import seedu.address.model.ModuleManager;
-import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.course.CourseName;
@@ -104,15 +102,12 @@ public class EditCommand extends Command {
     }
 
     @Override
-    public CommandResult execute(ProfileManager profileManager, CourseManager courseManager,
-                                 ModuleManager moduleManager) throws CommandException {
-        requireNonNull(profileManager);
-        requireNonNull(courseManager);
-        requireNonNull(moduleManager);
+    public CommandResult execute(Model model) throws CommandException {
+        requireNonNull(model);
 
         Profile profileToEdit;
         try {
-            profileToEdit = profileManager.getFirstProfile(); //accessing only first profile in list
+            profileToEdit = model.getFirstProfile(); //accessing only first profile in list
         } catch (Exception e) {
             throw new CommandException(MESSAGE_EMPTY_PROFILE_LIST);
         }
@@ -127,7 +122,7 @@ public class EditCommand extends Command {
             }
 
             // Checks if module has been added to any semesters before
-            Module module = moduleManager.getModule(moduleCode);
+            Module module = model.getModule(moduleCode);
             Module existingModule = null;
             int oldSemester = 0;
 
@@ -147,7 +142,7 @@ public class EditCommand extends Command {
             if (grade != null) {
                 int currentUserSemester = profileToEdit.getOverallSemester();
                 existingModule.getPersonal().setGrade(grade);
-                profileManager.setDisplayedView(profileToEdit);
+                model.setDisplayedView(profileToEdit);
                 profileToEdit.updateCap();
                 showCommand = true;
 
@@ -170,10 +165,10 @@ public class EditCommand extends Command {
                     throw new CommandException(MESSAGE_MAX_MODS);
                 }
                 updateStatus(profileToEdit);
-                profileManager.setDisplayedView(profileToEdit);
+                model.setDisplayedView(profileToEdit);
 
-                profileManager.clearDeadlineList();
-                profileManager.setNewDeadlineList(profileToEdit);
+                model.clearDeadlineList();
+                model.setNewDeadlineList(profileToEdit);
                 showCommand = true;
             }
 
@@ -184,7 +179,7 @@ public class EditCommand extends Command {
                     newDeadline = existingModule.getDeadlineList().getTask(oldTask);
                     oldDeadline = newDeadline;
                     newDeadline.setDescription(newTask);
-                    profileManager.replaceDeadline(oldDeadline, newDeadline);
+                    model.replaceDeadline(oldDeadline, newDeadline);
                     oldTask = newTask;
                 } catch (Exception e) {
                     throw new CommandException(MESSAGE_DEADLINE_DOES_NOT_EXIST);
@@ -198,7 +193,7 @@ public class EditCommand extends Command {
                     String time = newDeadlineString.split(" ")[1];
                     newDeadline.setDateTime(date, time);
                     newDeadline.addTag();
-                    profileManager.replaceDeadline(oldDeadline, newDeadline);
+                    model.replaceDeadline(oldDeadline, newDeadline);
                 } catch (Exception e) {
                     throw new CommandException(MESSAGE_DEADLINE_DOES_NOT_EXIST);
                 }
@@ -237,14 +232,14 @@ public class EditCommand extends Command {
             if (updatedSemester != 0) {
                 profileToEdit.setCurrentSemester(updatedSemester);
                 updateStatus(profileToEdit);
-                profileManager.clearDeadlineList();
-                profileManager.setNewDeadlineList(profileToEdit);
+                model.clearDeadlineList();
+                model.setNewDeadlineList(profileToEdit);
             }
 
             Profile editedPerson = createEditedPerson(profileToEdit);
 
-            profileManager.setProfile(profileToEdit, editedPerson);
-            profileManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            model.setProfile(profileToEdit, editedPerson);
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
             return new CommandResult(String.format(MESSAGE_EDIT_PROFILE_SUCCESS, editedPerson.getName()), false);
         } else {
