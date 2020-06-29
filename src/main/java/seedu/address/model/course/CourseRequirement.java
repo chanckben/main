@@ -1,9 +1,9 @@
-package seedu.address.model.profile.course;
+package seedu.address.model.course;
 
 import java.util.List;
 
-import seedu.address.model.profile.course.module.ModularCredits;
-import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.module.ModularCredits;
+import seedu.address.model.module.ModuleCode;
 
 
 //@@author wanxuanong

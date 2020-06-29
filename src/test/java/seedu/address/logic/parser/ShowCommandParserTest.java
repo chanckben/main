@@ -22,9 +22,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Year;
-import seedu.address.model.profile.course.AcceptedCourses;
-import seedu.address.model.profile.course.CourseName;
-import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.course.AcceptedCourses;
+import seedu.address.model.course.CourseName;
+import seedu.address.model.module.ModuleCode;
 
 //@@author chanckben
 public class ShowCommandParserTest {

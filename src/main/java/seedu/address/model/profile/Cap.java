@@ -6,8 +6,8 @@ import java.text.DecimalFormat;
 import java.util.TreeMap;
 
 import seedu.address.model.ModuleList;
-import seedu.address.model.profile.course.module.ModularCredits;
-import seedu.address.model.profile.course.module.Module;
+import seedu.address.model.module.ModularCredits;
+import seedu.address.model.module.Module;
 
 //@@author gyant6
 /**

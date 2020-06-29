@@ -44,9 +44,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.profile.Year;
-import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.personal.Deadline;
-import seedu.address.model.profile.course.module.personal.Grade;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.personal.Deadline;
+import seedu.address.model.module.personal.Grade;
 
 //@@author wanxuanong
 public class AddCommandParserTest {

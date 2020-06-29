@@ -18,9 +18,9 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.exceptions.DateTimeException;
-import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.exceptions.DateTimeException;
+import seedu.address.model.module.personal.Deadline;
 
 //@@author joycelynteo
 

@@ -1,10 +1,10 @@
-package seedu.address.model.profile.course.module.personal;
+package seedu.address.model.module.personal;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import seedu.address.model.profile.course.module.exceptions.DateTimeException;
+import seedu.address.model.module.exceptions.DateTimeException;
 
 //@@author wanxuanong
 /**

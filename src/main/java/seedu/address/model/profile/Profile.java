@@ -13,12 +13,12 @@ import java.util.TreeMap;
 
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ModuleList;
-import seedu.address.model.profile.course.CourseName;
-import seedu.address.model.profile.course.FocusArea;
-import seedu.address.model.profile.course.module.Module;
-import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.exceptions.ModuleNotFoundException;
-import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.course.CourseName;
+import seedu.address.model.course.FocusArea;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.exceptions.ModuleNotFoundException;
+import seedu.address.model.module.personal.Deadline;
 import seedu.address.model.profile.exceptions.MaxModsException;
 
 //@@author chanckben

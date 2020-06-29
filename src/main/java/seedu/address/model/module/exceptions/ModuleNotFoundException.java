@@ -1,4 +1,4 @@
-package seedu.address.model.profile.course.module.exceptions;
+package seedu.address.model.module.exceptions;
 
 //@@author chanckben
 /**

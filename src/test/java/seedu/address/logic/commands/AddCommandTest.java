@@ -41,8 +41,8 @@ import seedu.address.model.ModelManagerStub;
 import seedu.address.model.ModelManagerStubWithNonEmptyProfileModule;
 import seedu.address.model.ModelStubWithNonEmptyProfileModule;
 import seedu.address.model.profile.Year;
-import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.personal.Deadline;
 
 //@@author wanxuanong
 

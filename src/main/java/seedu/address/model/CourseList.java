@@ -7,9 +7,9 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE_FOCUS_A
 import java.util.ArrayList;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.course.Course;
-import seedu.address.model.profile.course.CourseFocusArea;
-import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.course.Course;
+import seedu.address.model.course.CourseFocusArea;
+import seedu.address.model.course.CourseName;
 
 //@@author gyant6
 /**

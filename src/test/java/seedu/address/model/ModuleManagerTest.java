@@ -17,16 +17,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.course.module.Description;
-import seedu.address.model.profile.course.module.ModularCredits;
-import seedu.address.model.profile.course.module.Module;
-import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.Preclusions;
-import seedu.address.model.profile.course.module.PrereqTreeNode;
-import seedu.address.model.profile.course.module.Prereqs;
-import seedu.address.model.profile.course.module.SemesterData;
-import seedu.address.model.profile.course.module.Title;
-import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.module.Description;
+import seedu.address.model.module.ModularCredits;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.Preclusions;
+import seedu.address.model.module.PrereqTreeNode;
+import seedu.address.model.module.Prereqs;
+import seedu.address.model.module.SemesterData;
+import seedu.address.model.module.Title;
+import seedu.address.model.module.personal.Deadline;
 
 //@@author jadetayy
 

@@ -9,6 +9,8 @@ Package Storage <<Rectangle>> {
 Interface Storage <<Interface>>
 Interface UserPrefsStorage <<Interface>>
 Interface ProfileListStorage <<Interface>>
+Interface ModuleListStorage <<Interface>>
+Interface CourseListStorage <<Interface>>
 
 Class StorageManager
 Class JsonUserPrefsStorage
@@ -19,38 +21,42 @@ Class JsonSemesterRecord
 Class JsonPersonalModule
 Class JsonDeadline
 
-Class JsonModuleListStorage #darkorange
-Class JsonSerializableModuleList #darkorange
-Class JsonModule #darkorange
-Class JsonSemesterData #darkorange
-Class JsonPrereqTreeNode #darkorange
+Class JsonModuleListStorage
+Class JsonSerializableModuleList
+Class JsonModule
+Class JsonSemesterData
+Class JsonPrereqTreeNode
 
-Class JsonCourseListStorage #grey
-Class JsonSerializableCourseList #grey
-Class JsonCourse #grey
-Class JsonCourseRequirement #grey
-Class JsonCourseFocusArea #grey
+Class JsonCourseListStorage
+Class JsonSerializableCourseList
+Class JsonCourse
+Class JsonCourseRequirement
+Class JsonCourseFocusArea
 
 }
 
 StorageManager .right.|> Storage
 StorageManager o-left- UserPrefsStorage
 StorageManager o-- ProfileListStorage
+StorageManager o-- ModuleListStorage
+StorageManager o-- CourseListStorage
 
 JsonUserPrefsStorage .right.|> UserPrefsStorage
 JsonProfileListStorage .up.|> ProfileListStorage
 JsonProfileListStorage .down.> JsonSerializableProfileList
 JsonSerializableProfileList .down.> JsonProfile
-JsonProfile *-down- JsonSemesterRecord
+JsonProfile *-right- JsonSemesterRecord
 JsonSemesterRecord *-down- JsonPersonalModule
 JsonPersonalModule *-down- JsonDeadline
 JsonPersonalModule -left-|> JsonModule
 
+JsonModuleListStorage .up.|> ModuleListStorage
 JsonModuleListStorage .down.> JsonSerializableModuleList
 JsonSerializableModuleList .down.> JsonModule
 JsonModule *-down- JsonSemesterData
 JsonModule *-down- JsonPrereqTreeNode
 
+JsonCourseListStorage .up.|> CourseListStorage
 JsonCourseListStorage .down.> JsonSerializableCourseList
 JsonSerializableCourseList .down.> JsonCourse
 JsonCourse *-down- JsonCourseRequirement

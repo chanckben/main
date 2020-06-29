@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.course.AcceptedCourses;
-import seedu.address.model.profile.course.Course;
-import seedu.address.model.profile.course.CourseFocusArea;
+import seedu.address.model.course.AcceptedCourses;
+import seedu.address.model.course.Course;
+import seedu.address.model.course.CourseFocusArea;
 
 /**
  * Stub for Model with a course in courseList and a focus area

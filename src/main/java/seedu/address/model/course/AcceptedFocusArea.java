@@ -1,4 +1,4 @@
-package seedu.address.model.profile.course;
+package seedu.address.model.course;
 
 //@@author joycelynteo
 /**

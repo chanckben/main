@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.course.module.exceptions.DateTimeException;
+import seedu.address.model.module.exceptions.DateTimeException;
 import seedu.address.model.profile.exceptions.DeadlineNotFoundException;
 
 /**

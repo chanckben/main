@@ -3,7 +3,7 @@ package seedu.address.logic.parser;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.course.module.exceptions.DateTimeException;
+import seedu.address.model.module.exceptions.DateTimeException;
 
 /**
  * Represents a Parser that is able to parse user input into a {@code Command} of type {@code T}.

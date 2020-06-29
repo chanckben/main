@@ -18,10 +18,10 @@ import seedu.address.model.Model;
 import seedu.address.model.ProfileList;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.course.module.Module;
-import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.exceptions.ModuleNotFoundException;
-import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.exceptions.ModuleNotFoundException;
+import seedu.address.model.module.personal.Deadline;
 
 //@@author chanckben
 

@@ -1,10 +1,10 @@
-package seedu.address.model.profile.course.module;
+package seedu.address.model.module;
 
 import java.util.List;
 
-import seedu.address.model.profile.course.module.personal.Deadline;
-import seedu.address.model.profile.course.module.personal.DeadlineList;
-import seedu.address.model.profile.course.module.personal.Personal;
+import seedu.address.model.module.personal.Deadline;
+import seedu.address.model.module.personal.DeadlineList;
+import seedu.address.model.module.personal.Personal;
 
 //@@author gyant6
 /**

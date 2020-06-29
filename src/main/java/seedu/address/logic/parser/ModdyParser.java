@@ -18,7 +18,7 @@ import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.course.module.exceptions.DateTimeException;
+import seedu.address.model.module.exceptions.DateTimeException;
 
 //@@author joycelynteo
 

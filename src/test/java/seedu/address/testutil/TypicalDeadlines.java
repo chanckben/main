@@ -2,7 +2,7 @@ package seedu.address.testutil;
 
 //@@author gyant6
 
-import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.module.personal.Deadline;
 
 /**
  * A utility class containing a list of {@code Deadline} objects to be used in tests.

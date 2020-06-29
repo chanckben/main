@@ -4,15 +4,15 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
 
-import seedu.address.model.profile.course.module.Description;
-import seedu.address.model.profile.course.module.ModularCredits;
-import seedu.address.model.profile.course.module.Module;
-import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.Preclusions;
-import seedu.address.model.profile.course.module.PrereqTreeNode;
-import seedu.address.model.profile.course.module.Prereqs;
-import seedu.address.model.profile.course.module.SemesterData;
-import seedu.address.model.profile.course.module.Title;
+import seedu.address.model.module.Description;
+import seedu.address.model.module.ModularCredits;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.Preclusions;
+import seedu.address.model.module.PrereqTreeNode;
+import seedu.address.model.module.Prereqs;
+import seedu.address.model.module.SemesterData;
+import seedu.address.model.module.Title;
 
 /**
  * Stub for ModelManager containing one module in moduleList

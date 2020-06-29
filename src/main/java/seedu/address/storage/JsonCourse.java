@@ -7,9 +7,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.profile.course.Course;
-import seedu.address.model.profile.course.CourseFocusArea;
-import seedu.address.model.profile.course.CourseRequirement;
+import seedu.address.model.course.Course;
+import seedu.address.model.course.CourseFocusArea;
+import seedu.address.model.course.CourseRequirement;
 
 //@@author gyant6
 /**

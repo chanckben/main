@@ -8,15 +8,21 @@ Package Model <<Rectangle>>{
 Interface Model <<Interface>>
 Interface ObservableList <<Interface>>
 Class Model
+Class Profile
 Class ProfileList
 Class ProfileManager
+Class Module
+Class ModuleList
+Class ModuleManager
+Class Course
+Class CourseList
+Class CourseManager
+Class ModelManager
 Class UserPrefs
 Class ReadOnlyUserPrefs
 
 Package Profile {
 Class Profile
-Class DeadlineList
-Class ModuleList
 }
 
 Package Module {
@@ -24,28 +30,27 @@ Class Module
 }
 
 
-Package Deadline {
-Class Deadline
+Package Course {
+Class Course
 }
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
-ProfileManager .up.|> Model
-Model ..> ObservableList
+ModelManager .up.|> Model
+Model .right.> ObservableList
+ModelManager *-- ProfileManager
+ModelManager *-- ModuleManager
+ModelManager *-- CourseManager
 ProfileManager *-- ProfileList
-ProfileManager *-left- UserPrefs
-UserPrefs .up.|> ReadOnlyUserPrefs
-
+ModuleManager *-- ModuleList
+CourseManager *-- CourseList
 ProfileList *-- "1"Profile
-
-Profile *--right DeadlineList
-Profile *--down "0..18" ModuleList
-DeadlineList ..up|> ObservableList
-ModuleList *--left "*" Module
-
-DeadlineList *-- "*"Deadline
+ModuleList *-- Module
+CourseList *-- Course
+ModelManager *-left- UserPrefs
+UserPrefs .up.|> ReadOnlyUserPrefs
 
 @enduml
 

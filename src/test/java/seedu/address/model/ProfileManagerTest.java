@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.module.personal.Deadline;
 
 //@@author gyant6
 

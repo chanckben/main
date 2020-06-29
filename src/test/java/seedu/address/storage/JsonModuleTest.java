@@ -9,11 +9,11 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.profile.course.module.Description;
-import seedu.address.model.profile.course.module.ModularCredits;
-import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.SemesterData;
-import seedu.address.model.profile.course.module.Title;
+import seedu.address.model.module.Description;
+import seedu.address.model.module.ModularCredits;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.SemesterData;
+import seedu.address.model.module.Title;
 
 //@@author chanckben
 public class JsonModuleTest {

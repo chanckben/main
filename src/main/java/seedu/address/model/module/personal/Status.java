@@ -1,4 +1,4 @@
-package seedu.address.model.profile.course.module.personal;
+package seedu.address.model.module.personal;
 
 import java.util.stream.Collectors;
 import java.util.stream.Stream;

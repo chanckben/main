@@ -7,8 +7,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.PrereqTreeNode;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.PrereqTreeNode;
 
 //@@author chanckben
 /**

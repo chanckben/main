@@ -10,10 +10,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.course.AcceptedCourses;
-import seedu.address.model.profile.course.AcceptedFocusArea;
-import seedu.address.model.profile.course.CourseName;
-import seedu.address.model.profile.course.FocusArea;
+import seedu.address.model.course.AcceptedCourses;
+import seedu.address.model.course.AcceptedFocusArea;
+import seedu.address.model.course.CourseName;
+import seedu.address.model.course.FocusArea;
 import seedu.address.model.profile.exceptions.DuplicatePersonException;
 import seedu.address.model.profile.exceptions.PersonNotFoundException;
 

@@ -1,11 +1,11 @@
-package seedu.address.model.profile.course;
+package seedu.address.model.course;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.model.ModuleList;
-import seedu.address.model.profile.course.module.Module;
-import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
 
 //@@author wanxuanong
 /**

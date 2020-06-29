@@ -11,9 +11,9 @@ import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.course.module.Module;
-import seedu.address.model.profile.course.module.ModuleCode;
-import seedu.address.model.profile.course.module.exceptions.ModuleNotFoundException;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
+import seedu.address.model.module.exceptions.ModuleNotFoundException;
 
 //@@author gyant6
 /**

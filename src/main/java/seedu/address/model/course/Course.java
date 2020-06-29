@@ -1,4 +1,4 @@
-package seedu.address.model.profile.course;
+package seedu.address.model.course;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE_FOCUS_AREA;

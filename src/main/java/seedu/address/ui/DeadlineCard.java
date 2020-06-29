@@ -8,8 +8,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import seedu.address.model.ModuleList;
-import seedu.address.model.profile.course.module.Module;
-import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.personal.Deadline;
 
 //@@author jadetayy
 /**

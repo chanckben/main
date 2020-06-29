@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.profile.course.module.Module;
+import seedu.address.model.module.Module;
 
 //@@author jadetayy
 /**

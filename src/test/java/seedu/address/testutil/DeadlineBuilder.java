@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
-import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.module.personal.Deadline;
 
 //@@author gyant6
 

@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.CourseList;
-import seedu.address.model.profile.course.Course;
+import seedu.address.model.course.Course;
 
 //@@author gyant6
 /**

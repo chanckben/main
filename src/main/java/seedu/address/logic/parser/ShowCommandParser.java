@@ -15,8 +15,8 @@ import seedu.address.logic.parser.exceptions.MultipleTagException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Year;
-import seedu.address.model.profile.course.CourseName;
-import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.course.CourseName;
+import seedu.address.model.module.ModuleCode;
 
 //@@author wanxuanong
 

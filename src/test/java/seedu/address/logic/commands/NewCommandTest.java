@@ -22,8 +22,8 @@ import seedu.address.model.ModelStubEmpty;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.Year;
-import seedu.address.model.profile.course.CourseName;
-import seedu.address.model.profile.course.FocusArea;
+import seedu.address.model.course.CourseName;
+import seedu.address.model.course.FocusArea;
 
 //@@author joycelynteo
 public class NewCommandTest {

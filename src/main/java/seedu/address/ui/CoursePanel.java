@@ -10,9 +10,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.course.Course;
-import seedu.address.model.profile.course.CourseFocusArea;
-import seedu.address.model.profile.course.CourseRequirement;
+import seedu.address.model.course.Course;
+import seedu.address.model.course.CourseFocusArea;
+import seedu.address.model.course.CourseRequirement;
 
 //@@author jadetayy
 /**

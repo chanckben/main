@@ -3,9 +3,9 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.course.Course;
-import seedu.address.model.profile.course.CourseFocusArea;
-import seedu.address.model.profile.course.CourseName;
+import seedu.address.model.course.Course;
+import seedu.address.model.course.CourseFocusArea;
+import seedu.address.model.course.CourseName;
 
 //@@author gyant6
 /**

@@ -7,7 +7,7 @@ import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.course.module.exceptions.DateTimeException;
+import seedu.address.model.module.exceptions.DateTimeException;
 
 /**
  * The UI component that is responsible for receiving user command inputs.

@@ -17,8 +17,8 @@ import seedu.address.model.Model;
 import seedu.address.model.ProfileList;
 import seedu.address.model.ProfileManager;
 import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.course.module.exceptions.DateTimeException;
-import seedu.address.model.profile.course.module.personal.Deadline;
+import seedu.address.model.module.exceptions.DateTimeException;
+import seedu.address.model.module.personal.Deadline;
 import seedu.address.storage.Storage;
 
 /**

@@ -5,8 +5,8 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import seedu.address.model.profile.course.module.Module;
-import seedu.address.model.profile.course.module.ModuleCode;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.ModuleCode;
 
 //@@author gyant6
 /**
