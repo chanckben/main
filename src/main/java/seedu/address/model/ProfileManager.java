@@ -16,13 +16,13 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseFocusArea;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.personal.Deadline;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
 
 //@@author chanckben
 /**

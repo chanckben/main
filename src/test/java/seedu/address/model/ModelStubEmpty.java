@@ -9,14 +9,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseFocusArea;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.personal.Deadline;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
 
 /**
  * Stub for Model

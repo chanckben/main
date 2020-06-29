@@ -27,8 +27,6 @@ import seedu.address.model.ModelStubEmpty;
 import seedu.address.model.ModelStubWithCourse;
 import seedu.address.model.ModelStubWithEmptyProfile;
 import seedu.address.model.ModelStubWithNonEmptyProfileModule;
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Year;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.module.Description;
 import seedu.address.model.module.ModularCredits;
@@ -39,6 +37,8 @@ import seedu.address.model.module.PrereqTreeNode;
 import seedu.address.model.module.Prereqs;
 import seedu.address.model.module.SemesterData;
 import seedu.address.model.module.Title;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Year;
 
 //@@author chanckben
 public class ShowCommandTest {

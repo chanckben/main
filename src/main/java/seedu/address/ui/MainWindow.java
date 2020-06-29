@@ -19,11 +19,11 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseFocusArea;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.exceptions.DateTimeException;
+import seedu.address.model.profile.Profile;
 
 //@@author jadetayy
 

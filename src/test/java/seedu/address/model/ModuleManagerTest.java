@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.module.Description;
 import seedu.address.model.module.ModularCredits;
 import seedu.address.model.module.Module;
@@ -27,6 +26,7 @@ import seedu.address.model.module.Prereqs;
 import seedu.address.model.module.SemesterData;
 import seedu.address.model.module.Title;
 import seedu.address.model.module.personal.Deadline;
+import seedu.address.model.profile.Profile;
 
 //@@author jadetayy
 

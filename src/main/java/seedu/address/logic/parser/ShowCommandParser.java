@@ -13,10 +13,10 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.ShowCommand;
 import seedu.address.logic.parser.exceptions.MultipleTagException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Year;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.module.ModuleCode;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Year;
 
 //@@author wanxuanong
 

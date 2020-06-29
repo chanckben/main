@@ -8,12 +8,12 @@ import java.util.function.Predicate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.course.AcceptedCourses;
 import seedu.address.model.course.AcceptedFocusArea;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.FocusArea;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.exceptions.DuplicatePersonException;
 import seedu.address.model.profile.exceptions.PersonNotFoundException;
 

@@ -19,8 +19,8 @@ import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.module.Module;
+import seedu.address.model.profile.Profile;
 
 //@@author jadetayy
 /**

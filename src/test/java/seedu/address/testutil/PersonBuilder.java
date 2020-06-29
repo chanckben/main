@@ -1,9 +1,9 @@
 package seedu.address.testutil;
 
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.FocusArea;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
 
 //@@author gyant6
 

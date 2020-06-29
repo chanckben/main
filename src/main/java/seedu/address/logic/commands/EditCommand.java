@@ -23,14 +23,14 @@ import seedu.address.logic.parser.CliSyntax;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Model;
 import seedu.address.model.ModuleList;
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.FocusArea;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 import seedu.address.model.module.personal.Deadline;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.exceptions.MaxModsException;
 
 //@@author joycelynteo

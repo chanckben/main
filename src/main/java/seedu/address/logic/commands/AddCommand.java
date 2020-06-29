@@ -18,11 +18,11 @@ import java.util.TreeMap;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModuleList;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.personal.Deadline;
 import seedu.address.model.module.personal.Personal;
+import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.exceptions.MaxModsException;
 
 //@@author joycelynteo
@@ -35,28 +35,28 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a module or task to the module.\n"
-            + "Parameters: "
-            + PREFIX_MODULE + "MODULE "
-            + PREFIX_YEAR + "SEMESTER "
-            + "(" + PREFIX_TASK + "TASK) "
-            + "(" + PREFIX_DEADLINE + "DEADLINE) "
-            + "\n"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_MODULE + "CS2103 "
-            + PREFIX_YEAR + "4 "
-            + "(" + PREFIX_TASK + "assignment) "
-            + "(" + PREFIX_DEADLINE + "2020-03-16 23:59) ";
+        + "Parameters: "
+        + PREFIX_MODULE + "MODULE "
+        + PREFIX_YEAR + "SEMESTER "
+        + "(" + PREFIX_TASK + "TASK) "
+        + "(" + PREFIX_DEADLINE + "DEADLINE) "
+        + "\n"
+        + "Example: " + COMMAND_WORD + " "
+        + PREFIX_MODULE + "CS2103 "
+        + PREFIX_YEAR + "4 "
+        + "(" + PREFIX_TASK + "assignment) "
+        + "(" + PREFIX_DEADLINE + "2020-03-16 23:59) ";
 
     public static final String MESSAGE_ADD_SUCCESS = "New Module(s) added: %1$s";
     public static final String MESSAGE_EDIT_SUCCESS = "Existing module updated: %1$s";
     public static final String MESSAGE_DEADLINE_INVALID_SEMESTER = "Error: You can only add tasks to modules that "
-            + "are already added in the current semester";
+        + "are already added in the current semester";
     public static final String MESSAGE_DUPLICATE_MODULE = "Error: Module(s) already in profile: %1$s\n"
-            + "If you're adding task(s), please specify specify task name and/or deadline.\n"
-            + "If you're adding module(s), check that the module(s) are not currently in the profile.";
+        + "If you're adding task(s), please specify specify task name and/or deadline.\n"
+        + "If you're adding module(s), check that the module(s) are not currently in the profile.";
     public static final String MESSAGE_MODULE_NOT_ADDED = "Error: Please add this module to a semester first.";
     public static final String MESSAGE_UNFULFILLED_PREREQS = "NOTE: You may not have fulfilled the prerequisites of "
-            + "%1$s before year %2$s semester %3$s";
+        + "%1$s before year %2$s semester %3$s";
     public static final String PREREQ_STRING = "\nPrerequisites of %1$s: %2$s";
 
     private final List<ModuleCode> toAdd;
@@ -278,7 +278,7 @@ public class AddCommand extends Command {
         // If there are multiple modules and some modules currently exist, raise error
         List<ModuleCode> invalidMods = new ArrayList<>();
         List<ModuleCode> existingMods = new ArrayList<>();
-        for (ModuleCode moduleCode: toAdd) {
+        for (ModuleCode moduleCode : toAdd) {
             if (!model.hasModule(moduleCode)) {
                 invalidMods.add(moduleCode);
             }
@@ -297,15 +297,15 @@ public class AddCommand extends Command {
         if (toAdd.size() > 1) {
             List<ModuleCode> modsUnfulfilledPrereqs = new ArrayList<>();
             StringBuilder prereqMsg = new StringBuilder();
-            for (ModuleCode moduleCode: toAdd) {
+            for (ModuleCode moduleCode : toAdd) {
                 AddCommand command = new AddCommand(Collections.singletonList(moduleCode), addSemester, null,
-                        new ArrayList<>());
+                    new ArrayList<>());
                 CommandResult result = command.execute(model);
                 // Store unfulfilled prerequisites in a list and provide user with more information
                 if (result.getFeedbackToUser().contains("prerequisites")) {
                     modsUnfulfilledPrereqs.add(moduleCode);
                     prereqMsg.append(String.format(PREREQ_STRING, moduleCode,
-                            model.getModule(moduleCode).getPrereqs()));
+                        model.getModule(moduleCode).getPrereqs()));
                 }
             }
             // Modules with unfulfilled prerequisites are being added
@@ -313,8 +313,8 @@ public class AddCommand extends Command {
                 int year = (addSemester + 1) / 2;
                 int sem = 2 - (addSemester % 2);
                 return new CommandResult(
-                        String.format(MESSAGE_UNFULFILLED_PREREQS, modsUnfulfilledPrereqs, year, sem) + prereqMsg,
-                        true);
+                    String.format(MESSAGE_UNFULFILLED_PREREQS, modsUnfulfilledPrereqs, year, sem) + prereqMsg,
+                    true);
             }
             // All prerequisites of modules are fulfilled
             return new CommandResult(String.format(MESSAGE_ADD_SUCCESS, toAdd), true);
@@ -326,8 +326,8 @@ public class AddCommand extends Command {
         int semesterOfModule = 0;
 
         // Check whether this module has been added to Profile semester TreeMap
-        for (ModuleList semesterList: profile.getSemModTreeMap().values()) {
-            for (Module moduleInSem: semesterList) {
+        for (ModuleList semesterList : profile.getSemModTreeMap().values()) {
+            for (Module moduleInSem : semesterList) {
                 if (moduleToAdd.isSameModule(moduleInSem)) {
                     hasModule = true;
                     moduleToAdd = moduleInSem;
@@ -426,11 +426,11 @@ public class AddCommand extends Command {
             }
             // Check if prerequisites of the module have been fulfilled
             if (moduleToAdd.getPrereqTreeNode() != null && !moduleToAdd.getPrereqTreeNode()
-                    .hasFulfilledPrereqs(profile.getAllModuleCodesBefore(addSemester))) {
+                .hasFulfilledPrereqs(profile.getAllModuleCodesBefore(addSemester))) {
                 int year = (addSemester + 1) / 2;
                 int sem = 2 - (addSemester % 2);
                 messageShown = String.format(MESSAGE_UNFULFILLED_PREREQS, moduleCodeToAdd, year, sem)
-                        + String.format(PREREQ_STRING, moduleCodeToAdd, moduleToAdd.getPrereqs());
+                    + String.format(PREREQ_STRING, moduleCodeToAdd, moduleToAdd.getPrereqs());
             } else {
                 messageShown = MESSAGE_ADD_SUCCESS;
             }
@@ -451,8 +451,8 @@ public class AddCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddCommand // instanceof handles nulls
-                && toAdd.equals(((AddCommand) other).toAdd));
+            || (other instanceof AddCommand // instanceof handles nulls
+            && toAdd.equals(((AddCommand) other).toAdd));
     }
 
     /**

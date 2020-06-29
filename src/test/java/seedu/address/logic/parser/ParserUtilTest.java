@@ -14,9 +14,9 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.profile.Name;
 import seedu.address.model.course.AcceptedCourses;
 import seedu.address.model.course.CourseName;
+import seedu.address.model.profile.Name;
 
 //@@author chanckben
 public class ParserUtilTest {

@@ -20,11 +20,11 @@ import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_SEMESTER;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.ShowCommand;
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Year;
 import seedu.address.model.course.AcceptedCourses;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.module.ModuleCode;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Year;
 
 //@@author chanckben
 public class ShowCommandParserTest {

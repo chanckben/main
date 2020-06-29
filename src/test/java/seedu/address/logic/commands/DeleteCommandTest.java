@@ -37,9 +37,9 @@ import seedu.address.model.ModelManagerStubWithNonEmptyProfileModule;
 import seedu.address.model.ModelStubEmpty;
 import seedu.address.model.ModelStubWithEmptyProfile;
 import seedu.address.model.ModelStubWithNonEmptyProfileModule;
-import seedu.address.model.profile.Name;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.personal.Deadline;
+import seedu.address.model.profile.Name;
 
 //@@author wanxuanong
 

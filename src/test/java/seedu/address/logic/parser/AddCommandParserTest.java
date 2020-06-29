@@ -43,10 +43,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.model.profile.Year;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.personal.Deadline;
 import seedu.address.model.module.personal.Grade;
+import seedu.address.model.profile.Year;
 
 //@@author wanxuanong
 public class AddCommandParserTest {

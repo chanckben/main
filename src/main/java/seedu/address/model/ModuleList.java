@@ -69,7 +69,7 @@ public class ModuleList implements Iterable<Module> {
 
     /**
      * Removes the module with module code {@code moduleCode} in the module list, if it exists.
-     * @throws ParseException No module in the module list contains {@code moduleCode}.
+     * @throws ModuleNotFoundException No module in the module list contains {@code moduleCode}.
      */
     public void removeModuleWithModuleCode(ModuleCode moduleCode) throws ModuleNotFoundException {
         requireNonNull(moduleCode);

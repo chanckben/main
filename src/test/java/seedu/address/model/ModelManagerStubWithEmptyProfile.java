@@ -4,12 +4,12 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import javafx.collections.transformation.FilteredList;
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.course.AcceptedCourses;
 import seedu.address.model.course.AcceptedFocusArea;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.FocusArea;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.exceptions.DuplicatePersonException;
 import seedu.address.model.profile.exceptions.PersonNotFoundException;
 

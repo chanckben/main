@@ -19,11 +19,11 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManagerStub;
 import seedu.address.model.ModelStubEmpty;
+import seedu.address.model.course.CourseName;
+import seedu.address.model.course.FocusArea;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.Year;
-import seedu.address.model.course.CourseName;
-import seedu.address.model.course.FocusArea;
 
 //@@author joycelynteo
 public class NewCommandTest {

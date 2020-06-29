@@ -14,8 +14,6 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.FocusArea;
 import seedu.address.model.module.Description;
@@ -33,6 +31,8 @@ import seedu.address.model.module.personal.ModuleGrade;
 import seedu.address.model.module.personal.ModuleStatus;
 import seedu.address.model.module.personal.Personal;
 import seedu.address.model.module.personal.Status;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
 
 //@@author chanckben
 public class JsonProfileTest {

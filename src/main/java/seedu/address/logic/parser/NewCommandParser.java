@@ -12,10 +12,10 @@ import seedu.address.logic.commands.NewCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ProfileList;
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.FocusArea;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
 
 //@@author joycelynteo
 

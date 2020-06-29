@@ -15,8 +15,6 @@ import java.util.Iterator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.course.AcceptedCourses;
 import seedu.address.model.course.AcceptedFocusArea;
 import seedu.address.model.course.CourseName;
@@ -32,6 +30,8 @@ import seedu.address.model.module.SemesterData;
 import seedu.address.model.module.Title;
 import seedu.address.model.module.personal.Deadline;
 import seedu.address.model.module.personal.Personal;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.exceptions.MaxModsException;
 
 /**

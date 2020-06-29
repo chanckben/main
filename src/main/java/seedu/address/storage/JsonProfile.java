@@ -17,8 +17,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ModuleList;
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Profile;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.FocusArea;
 import seedu.address.model.module.Module;
@@ -26,6 +24,8 @@ import seedu.address.model.module.personal.Deadline;
 import seedu.address.model.module.personal.Grade;
 import seedu.address.model.module.personal.Personal;
 import seedu.address.model.module.personal.Status;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.exceptions.MaxModsException;
 
 //@@author chanckben

@@ -28,10 +28,10 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.model.profile.Name;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.personal.Deadline;
 import seedu.address.model.module.personal.Grade;
+import seedu.address.model.profile.Name;
 
 //@@author wanxuanong
 /**

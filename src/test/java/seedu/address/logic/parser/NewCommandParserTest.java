@@ -25,11 +25,11 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.NewCommand;
+import seedu.address.model.course.CourseName;
+import seedu.address.model.course.FocusArea;
 import seedu.address.model.profile.Name;
 import seedu.address.model.profile.Profile;
 import seedu.address.model.profile.Year;
-import seedu.address.model.course.CourseName;
-import seedu.address.model.course.FocusArea;
 
 //@@author joycelynteo
 public class NewCommandParserTest {

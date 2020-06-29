@@ -13,14 +13,14 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModuleList;
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.Year;
 import seedu.address.model.course.Course;
 import seedu.address.model.course.CourseFocusArea;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.ModuleCode;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.Year;
 
 
 //@@author wanxuanong

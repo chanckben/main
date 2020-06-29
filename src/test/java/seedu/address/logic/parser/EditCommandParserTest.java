@@ -43,14 +43,14 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.model.profile.Name;
-import seedu.address.model.profile.Profile;
-import seedu.address.model.profile.Year;
 import seedu.address.model.course.CourseName;
 import seedu.address.model.course.FocusArea;
 import seedu.address.model.module.ModuleCode;
 import seedu.address.model.module.personal.Deadline;
 import seedu.address.model.module.personal.Grade;
+import seedu.address.model.profile.Name;
+import seedu.address.model.profile.Profile;
+import seedu.address.model.profile.Year;
 
 //@@author joycelynteo
 public class EditCommandParserTest {
