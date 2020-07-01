@@ -2,7 +2,6 @@ package seedu.address.model.profile;
 
 import static java.util.Objects.requireNonNull;
 
-import java.text.DecimalFormat;
 import java.util.TreeMap;
 
 import seedu.address.model.ModuleList;
@@ -15,27 +14,17 @@ import seedu.address.model.module.Module;
  */
 public class Cap {
 
-    private Double cap;
-    private Double totalWeightage;
-    private Double totalCredits;
-
-    public Cap() {
-        this.cap = 0.0;
-        this.totalWeightage = 0.0;
-        this.totalCredits = 0.0;
-    }
-
     /**
      * Uses the latest ModuleList {@code ModuleList} to calculate the CAP
      * CAP is measured using this formula:
      * CAP = Sum (module grade point x modular credits for the module) / Sum (modular credits)
      * @param semModHashMap
      */
-    public void updateCap(TreeMap<Integer, ModuleList> semModHashMap) {
+    public static double getCap(TreeMap<Integer, ModuleList> semModHashMap) {
         requireNonNull(semModHashMap);
 
-        totalWeightage = 0.0;
-        totalCredits = 0.0;
+        double totalWeightage = 0.0;
+        double totalCredits = 0.0;
 
         for (ModuleList semesterList: semModHashMap.values()) {
             for (Module module: semesterList) {
@@ -45,20 +34,20 @@ public class Cap {
                     if (letterGradeNotApplicable(letterGrade)) {
                         continue; // skip this for loop
                     }
-                    Double numGrade = convertLetterGradeToNum(letterGrade);
+                    double numGrade = convertLetterGradeToNum(letterGrade);
 
                     // Convert ModularCredits to Double
                     ModularCredits modularCredits = module.getModularCredits();
-                    Double numCredits = Double.valueOf(modularCredits.toString());
+                    double numCredits = Double.parseDouble(modularCredits.toString());
                     totalCredits += numCredits;
 
-                    Double weightage = numGrade * numCredits;
+                    double weightage = numGrade * numCredits;
                     totalWeightage += weightage;
                 }
             }
         }
 
-        cap = totalWeightage / totalCredits;
+        return totalWeightage / totalCredits;
     }
 
     /**
@@ -66,7 +55,7 @@ public class Cap {
      * @param letterGrade
      * @return Returns true if grade is one of {S, U, CS, CU"}, false otherwise
      */
-    private boolean letterGradeNotApplicable(String letterGrade) {
+    private static boolean letterGradeNotApplicable(String letterGrade) {
         requireNonNull(letterGrade);
 
         switch(letterGrade) {
@@ -81,11 +70,11 @@ public class Cap {
     }
 
     /**
-     * Converts a letter grade {@code letterGrade} to a Double object
+     * Converts a letter grade {@code letterGrade} to a double
      * @param letterGrade String representation of a grade
      * @return Returns the Double value of a grade
      */
-    private Double convertLetterGradeToNum(String letterGrade) {
+    private static double convertLetterGradeToNum(String letterGrade) {
         requireNonNull(letterGrade);
 
         switch(letterGrade) {
@@ -111,14 +100,5 @@ public class Cap {
         default: // "F"
             return 0.0;
         }
-    }
-
-    @Override
-    public String toString() {
-        if (totalWeightage == 0) {
-            return "No grades added";
-        }
-        DecimalFormat df = new DecimalFormat("#.##"); // Convert cap to 2 d.p.
-        return df.format(cap);
     }
 }

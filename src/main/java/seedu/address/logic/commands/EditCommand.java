@@ -143,7 +143,6 @@ public class EditCommand extends Command {
                 int currentUserSemester = profileToEdit.getOverallSemester();
                 existingModule.getPersonal().setGrade(grade);
                 model.setDisplayedView(profileToEdit);
-                profileToEdit.updateCap();
                 showCommand = true;
 
             }

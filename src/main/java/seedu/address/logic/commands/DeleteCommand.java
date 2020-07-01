@@ -216,7 +216,6 @@ public class DeleteCommand extends Command {
                 try {
                     profile.getModule(deleteModuleCode).deleteGrade();
                     model.setDisplayedView(profile);
-                    profile.updateCap();
                 } catch (ModuleNotFoundException e) {
                     throw new CommandException(String.format(MESSAGE_NOT_TAKING_MODULE, deleteModuleCode.toString()));
                 } catch (NoSuchElementException e) {
@@ -229,7 +228,6 @@ public class DeleteCommand extends Command {
             try {
                 profile.deleteModule(deleteModuleCode);
                 model.deleteModuleDeadlines(deleteModuleCode);
-                profile.updateCap();
                 model.setDisplayedView(profile);
 
             } catch (ModuleNotFoundException e) {

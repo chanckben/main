@@ -435,7 +435,6 @@ public class AddCommand extends Command {
                 messageShown = MESSAGE_ADD_SUCCESS;
             }
             model.setDisplayedView(profile);
-            profile.updateCap();
             return new CommandResult(String.format(messageShown, moduleCodeToAdd), true);
         } else {
             messageShown = MESSAGE_EDIT_SUCCESS;
@@ -444,7 +443,6 @@ public class AddCommand extends Command {
             }
         }
 
-        profile.updateCap();
         return new CommandResult(String.format(messageShown, moduleCodeToAdd), false);
     }
 

@@ -49,7 +49,7 @@ public class OverviewPanel extends UiPart<Region> {
 
         Profile profile = profileList.get(0);
 
-        cap.setText("Current CAP: \n" + profile.getCap().toString());
+        cap.setText("Current CAP: \n" + profile.getCap());
 
 
         //Modules panel

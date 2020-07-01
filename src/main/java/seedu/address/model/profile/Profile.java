@@ -3,6 +3,7 @@ package seedu.address.model.profile;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SEMESTER;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,6 @@ public class Profile {
     private FocusArea focusArea;
     private Name name;
     private CourseName courseName;
-    private Cap cap;
     private List<Deadline> deadlineList;
 
     /**
@@ -49,7 +49,6 @@ public class Profile {
         this.currentSemester = currentSemester;
         this.focusArea = focusArea;
         this.semModTreeMap = new TreeMap<>();
-        this.cap = new Cap();
     }
 
 
@@ -94,22 +93,8 @@ public class Profile {
     }
 
     public int getCurrentYear() {
-        if (currentSemester == 1 || currentSemester == 2) {
-            return 1;
-        } else if (currentSemester == 3 || currentSemester == 4) {
-            return 2;
-        } else if (currentSemester == 5 || currentSemester == 6) {
-            return 3;
-        } else if (currentSemester == 7 || currentSemester == 8) {
-            return 4;
-        } else if (currentSemester == 9 || currentSemester == 10) {
-            return 5;
-        } else if (currentSemester == 11 || currentSemester == 12) {
-            return 6;
-        } else if (currentSemester == 13 || currentSemester == 14) {
-            return 7;
-        } else if (currentSemester == 15 || currentSemester == 16) {
-            return 8;
+        if (currentSemester >= 1 && currentSemester <= 16) {
+            return (currentSemester + 1) / 2;
         } else {
             return 9;
         }
@@ -181,13 +166,16 @@ public class Profile {
         return deadlineList;
     }
 
-
-    public void updateCap() {
-        cap.updateCap(semModTreeMap);
-    }
-
-    public Cap getCap() {
-        return cap;
+    public String getCap() {
+        for (ModuleList semMods: semModTreeMap.values()) {
+            for (Module mod: semMods) {
+                if (mod.hasGrade()) {
+                    DecimalFormat df = new DecimalFormat("#.##"); // Convert cap to 2 d.p.
+                    return df.format(Cap.getCap(semModTreeMap));
+                }
+            }
+        }
+        return "No grades added";
     }
 
     public ModuleList getCurModules() {
