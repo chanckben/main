@@ -55,9 +55,9 @@ public class OverviewPanel extends UiPart<Region> {
         //Modules panel
         HBox modPane = new HBox();
 
-        for (Integer i : profile.getAllModules().keySet()) {
+        for (Integer i : profile.getSemModTreeMap().keySet()) {
 
-            if (!profile.getAllModules().get(i).getModuleList().isEmpty()) {
+            if (!profile.getSemModTreeMap().get(i).getModuleList().isEmpty()) {
                 HBox temp = new HBox();
                 temp.setAlignment(Pos.CENTER);
                 temp.setMaxWidth(40);

@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_DEADLINE_DOES_NOT_EXIS
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_MODULE_DATA;
 import static seedu.address.commons.core.Messages.MESSAGE_EMPTY_PROFILE_LIST;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COURSE_FOCUS_AREA;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_MODULE;
 import static seedu.address.commons.core.Messages.MESSAGE_MAX_MODS;
 import static seedu.address.commons.core.Messages.MESSAGE_MODULE_NOT_ADDED;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE_NAME;
@@ -121,6 +122,10 @@ public class EditCommand extends Command {
                 throw new CommandException(MESSAGE_EMPTY_MODULE_DATA);
             }
 
+            if (!model.hasModule(this.moduleCode)) {
+                throw new CommandException(String.format(MESSAGE_INVALID_MODULE, this.moduleCode));
+            }
+
             // Checks if module has been added to any semesters before
             Module module = model.getModule(moduleCode);
             Module existingModule = null;
@@ -140,11 +145,9 @@ public class EditCommand extends Command {
             }
 
             if (grade != null) {
-                int currentUserSemester = profileToEdit.getOverallSemester();
                 existingModule.getPersonal().setGrade(grade);
                 model.setDisplayedView(profileToEdit);
                 showCommand = true;
-
             }
 
             if (oldSemester != 0 && editSemester != 0) {

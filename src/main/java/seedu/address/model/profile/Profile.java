@@ -142,10 +142,6 @@ public class Profile {
         return moduleCodes;
     }
 
-    public TreeMap<Integer, ModuleList> getAllModules() {
-        return semModTreeMap;
-    }
-
     public Set<Map.Entry<Integer, ModuleList>> getMappings() {
         return semModTreeMap.entrySet();
     }
